@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-aladin-dev-113839-authRole",
+      "UnauthRoleArn": "arn:aws:iam::511558468937:role/amplify-aladin-dev-113839-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::511558468937:role/amplify-aladin-dev-113839-authRole",
+      "Region": "ap-northeast-2",
+      "DeploymentBucketName": "amplify-aladin-dev-113839-deployment",
+      "UnauthRoleName": "amplify-aladin-dev-113839-unauthRole",
+      "StackName": "amplify-aladin-dev-113839",
+      "StackId": "arn:aws:cloudformation:ap-northeast-2:511558468937:stack/amplify-aladin-dev-113839/b0e03010-ac10-11ed-8776-02bfa6098354",
+      "AmplifyAppId": "d153u0ce8jp378"
+    },
+    "categories": {
+      "api": {
+        "aladin": {}
+      }
+    }
+  }
+}
