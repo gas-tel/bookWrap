@@ -26,7 +26,6 @@ export default {
     clickBookClass() {
       this.bookList = document.querySelector('.book-list-ui')
       this.$parent.activeBookList(this)
-      console.log(this.contentsType);
       document.querySelector('.sch-categoty').childNodes.forEach((v)=>{
         v.classList.remove('active')
       })
@@ -44,13 +43,14 @@ export default {
   }
   .book-list-ui {position: absolute; left: 0rem; top: calc(-50vh + 0rem); transform: rotate(-0deg);
   animation-duration: .2s;  animation-fill-mode: forwards; animation-name: slidein; animation-timing-function: ease-in; 
-    li {position: absolute; width: 24rem; 
-      img {animation-fill-mode: forwards; animation-timing-function: ease-in; position: absolute; width: 25rem; height: 35rem; border: 1px solid #ddd; box-shadow: 0px 4px 10px #00000014;}
+    li {position: absolute; width: 25rem; height: 35rem; border-radius: 5px;
+      img {animation-fill-mode: forwards; animation-timing-function: ease-in; position: absolute; width: 25rem; height: 35rem; box-shadow: 0px 4px 10px #00000014;}
       @for $i from 1 to 10 {
         &:nth-child(#{$i}) img {animation-duration: $i*.1s; animation-name: slideNode+$i; z-index: $i*1;}
       }
     }
   }
+  .menuNavBtn {display: none;}
 
   @keyframes slidein {
     0% {
@@ -70,7 +70,7 @@ export default {
           left: 0; transform: rotate(0); top: auto; 
         }
         100% {
-          left: ($i * 70px); top: ($i * 10px); transform: rotate(($i * 2deg));
+          left: ($i * 65px); top: (-30 + $i * 15px); transform: rotate(($i * 2.5deg));
         }
       } @else {
         0% {

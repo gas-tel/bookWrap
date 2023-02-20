@@ -52,6 +52,7 @@
                         :bookType=this.bookType
                     />
                 </ul>
+                <button>MORE</button>
             </div>
         </section>
     </header>
