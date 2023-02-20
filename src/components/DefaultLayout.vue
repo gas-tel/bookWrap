@@ -33,22 +33,22 @@
                 <ul class="sch-categoty">
                     <BookClassWrap 
                         menuTitle="comic"
-                        contentType="애니메이션"
+                        contentType="comic"
                         :bookType=this.bookType
                     />
                     <BookClassWrap 
                         menuTitle="novel"
-                        contentType="소설"
+                        contentType="novel"
                         :bookType=this.bookType
                     />
                     <BookClassWrap 
                         menuTitle="essay"
-                        contentType="에세이"
+                        contentType="essay"
                         :bookType=this.bookType
                     />
                     <BookClassWrap 
                         menuTitle="education"
-                        contentType="교육"
+                        contentType="education"
                         :bookType=this.bookType
                     />
                 </ul>
@@ -63,7 +63,7 @@ export default {
   components: { BookClassWrap },
   data () {
     return {
-        bookType : "애니메이션"
+        bookType : "comic"
     }
   },
   methods: {
@@ -95,8 +95,12 @@ export default {
                 input[type=text] {border: none; width: calc(100% - 17rem); height: 4rem;}
                 button {width: 7rem; background: rgb(34, 146, 226); color: #fff; height: 4rem; display: inline-block;}
             }
-            .sch-categoty {display: flex; justify-content: center; color: rgb(34, 146, 226); width: 100%;
-                li {padding: 1rem;}
+            .sch-categoty {display: flex; justify-content: center;  width: 100%; margin-top: 2rem;
+                li {padding: 1rem;
+                    button {color: #fff; font-size: 3rem; text-shadow: 0px 0px 3px rgb(34, 146, 226); transition: .3s all;
+                        &:hover { text-shadow: 0px 0px 8px rgb(34, 146, 226);}
+                    }
+                }
             }
         }
     }
