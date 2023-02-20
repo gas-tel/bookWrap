@@ -1,7 +1,7 @@
 <template>
   <li>
     <button @click="clickBookClass(this)">{{menuTitle}}</button>
-    <ul class="book-list-ui" v-if="bookType === this.contentType">
+    <ul class="book-list-ui" v-if="bookType === this.contentType">되냐
       <li v-for="book in bookData.filter((v) => v.content === this.contentType)" :key="book">
         <img :src="book.imgSrc" alt="">
       </li>
