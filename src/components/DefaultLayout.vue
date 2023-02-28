@@ -6,10 +6,16 @@
                     <a href="">HOME</a>
                 </li>
                 <li>
-                    <a href="">domestic</a>
+                    <a href="">COMIC</a>
                 </li>
                 <li>
-                    <a href="">foreign</a>
+                    <a href="">NOVEL</a>
+                </li>
+                <li>
+                    <a href="">ESSAY</a>
+                </li>
+                <li>
+                    <a href="">EDUCATION</a>
                 </li>
             </ul>
             <ul class="users">
@@ -52,7 +58,7 @@
                         :bookType=this.bookType
                     />
                 </ul>
-                <button>MORE</button>
+                <button class="goBtn">MORE {{bookType}} <i class="xi-trending-flat"></i></button>
             </div>
         </section>
     </header>
@@ -81,6 +87,7 @@ export default {
             &.top-section {color: #fff; position: relative;
                 &::after {display: block; content: ''; width: 100%; position: fixed; background: rgb(34, 146, 226); height: 4rem; z-index: -1; left: 0;}
             }
+            &.sch-section {height: 90rem; align-items: baseline;}
         }
         .top-nav,.users {display: flex; align-items: center; padding: 1rem 0;
             li {font-size: 1.4rem; position: relative; padding-right: 1.5rem;
@@ -102,6 +109,10 @@ export default {
                         &:hover { text-shadow: 0px 0px 8px rgb(34, 146, 226);}
                     }
                 }
+            }
+            .goBtn {background: rgb(34, 146, 226); border-radius: 5rem; color: #fff; padding: 1rem 1.5rem 1rem 3rem; display: flex; align-items: center; position: absolute; right: 0; 
+            top: 66rem;
+                i {font-size: 3rem; margin-left: 2rem;}
             }
         }
     }

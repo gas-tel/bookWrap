@@ -5,6 +5,7 @@ export default [
         date : "2023-02-01",
         id : 1,
         event : false,
+        animation : false,
         salesValue : 125,
         imgSrc : require("../img/books/book1.jpeg")
     },
@@ -14,6 +15,7 @@ export default [
         date : "2023-01-01",
         id : 2,
         event : true,
+        animation : false,
         salesValue : 45,
         imgSrc : require("../img/books/book2.jpeg")
     },
@@ -23,6 +25,7 @@ export default [
         date : "2022-12-30",
         id : 3,
         event : false,
+        animation : false,
         salesValue : 55,
         imgSrc : require("../img/books/book3.jpeg")
     },
@@ -32,6 +35,7 @@ export default [
         date : "2022-12-12",
         id : 4,
         event : false,
+        animation : false,
         salesValue : 77,
         imgSrc : require("../img/books/book4.jpeg")
     },
@@ -41,6 +45,7 @@ export default [
         date : "2022-11-05",
         id : 5,
         event : true,
+        animation : false,
         salesValue : 34,
         imgSrc : require("../img/books/book5.jpeg")
     },
@@ -50,6 +55,7 @@ export default [
         date : "2023-02-25",
         id : 6,
         event : false,
+        animation : false,
         salesValue : 95,
         imgSrc : require("../img/books/book40.jpg")
     },
@@ -59,6 +65,7 @@ export default [
         date : "2022-10-25",
         id : 7,
         event : false,
+        animation : false,
         salesValue : 32,
         imgSrc : require("../img/books/book6.jpeg")
     },
@@ -77,6 +84,7 @@ export default [
         date : "2023-01-05",
         id : 9,
         event : false,
+        animation : false,
         salesValue : 42,
         imgSrc : require("../img/books/book8.jpeg")
     },
@@ -86,6 +94,7 @@ export default [
         date : "2023-02-10",
         id : 10,
         event : false,
+        animation : false,
         salesValue : 25,
         imgSrc : require("../img/books/book9.jpeg")
     },
@@ -104,6 +113,7 @@ export default [
         date : "2022-10-25",
         id : 12,
         event : false,
+        animation : false,
         salesValue : 99,
         imgSrc : require("../img/books/book11.jpeg")
     },
@@ -113,6 +123,7 @@ export default [
         date : "2022-11-12",
         id : 13,
         event : true,
+        animation : false,
         salesValue : 29,
         imgSrc : require("../img/books/book12.jpeg")
     },
@@ -122,6 +133,7 @@ export default [
         date : "2021-05-30",
         id : 14,
         event : true,
+        animation : false,
         salesValue : 78,
         imgSrc : require("../img/books/book13.jpeg")
     },
@@ -131,6 +143,7 @@ export default [
         date : "2021-11-11",
         id : 15,
         event : true,
+        animation : false,
         salesValue : 31,
         imgSrc : require("../img/books/book14.jpeg")
     },
@@ -140,6 +153,7 @@ export default [
         date : "2023-01-05",
         id : 16,
         event : false,
+        animation : false,
         salesValue : 15,
         imgSrc : require("../img/books/book15.jpeg")
     },
@@ -149,6 +163,7 @@ export default [
         date : "2023-02-01",
         id : 17,
         event : false,
+        animation : false,
         salesValue : 12,
         imgSrc : require("../img/books/book16.jpeg")
     },
@@ -158,6 +173,7 @@ export default [
         date : "2021-05-20",
         id : 18,
         event : true,
+        animation : false,
         salesValue : 22,
         imgSrc : require("../img/books/book17.jpeg")
     },
@@ -167,6 +183,7 @@ export default [
         date : "2023-02-05",
         id : 19,
         event : false,
+        animation : false,
         salesValue : 19,
         imgSrc : require("../img/books/book18.jpeg")
     },
@@ -176,6 +193,7 @@ export default [
         date : "2023-01-09",
         id : 20,
         event : false,
+        animation : false,
         salesValue : 66,
         imgSrc : require("../img/books/book20.jpeg")
     },
@@ -185,6 +203,7 @@ export default [
         date : "2023-01-04",
         id : 21,
         event : false,
+        animation : false,
         salesValue : 31,
         imgSrc : require("../img/books/book21.jpeg")
     },
@@ -194,6 +213,7 @@ export default [
         date : "2023-01-05",
         id : 22,
         event : false,
+        animation : false,
         salesValue : 21,
         imgSrc : require("../img/books/book22.jpeg")
     },
@@ -203,6 +223,7 @@ export default [
         date : "2023-02-09",
         id : 23,
         event : false,
+        animation : false,
         salesValue : 71,
         imgSrc : require("../img/books/book23.jpeg")
     },
@@ -212,6 +233,7 @@ export default [
         date : "2023-01-14",
         id : 24,
         event : false,
+        animation : false,
         salesValue : 61,
         imgSrc : require("../img/books/book24.jpeg")
     },
@@ -221,6 +243,7 @@ export default [
         date : "2023-01-19",
         id : 25,
         event : false,
+        animation : false,
         salesValue : 45,
         imgSrc : require("../img/books/book25.jpeg")
     },
@@ -230,6 +253,7 @@ export default [
         date : "2023-01-09",
         id : 26,
         event : false,
+        animation : false,
         salesValue : 11,
         imgSrc : require("../img/books/book26.jpeg")
     },
@@ -239,6 +263,7 @@ export default [
         date : "2023-02-19",
         id : 27,
         event : false,
+        animation : false,
         salesValue : 24,
         imgSrc : require("../img/books/book27.jpeg")
     },
@@ -248,6 +273,7 @@ export default [
         date : "2022-12-09",
         id : 28,
         event : false,
+        animation : false,
         salesValue : 41,
         imgSrc : require("../img/books/book28.jpeg")
     },
@@ -257,6 +283,7 @@ export default [
         date : "2023-01-11",
         id : 29,
         event : false,
+        animation : false,
         salesValue : 1,
         imgSrc : require("../img/books/book29.jpeg")
     },
@@ -266,6 +293,7 @@ export default [
         date : "2023-01-31",
         id : 30,
         event : false,
+        animation : false,
         salesValue : 9,
         imgSrc : require("../img/books/book30.jpeg")
     },
@@ -275,6 +303,7 @@ export default [
         date : "2023-01-05",
         id : 31,
         event : false,
+        animation : false,
         salesValue : 45,
         imgSrc : require("../img/books/book31.jpeg")
     },
@@ -284,6 +313,7 @@ export default [
         date : "2023-02-09",
         id : 32,
         event : false,
+        animation : false,
         salesValue : 6,
         imgSrc : require("../img/books/book32.jpeg")
     },
@@ -293,6 +323,7 @@ export default [
         date : "2023-01-15",
         id : 33,
         event : false,
+        animation : false,
         salesValue : 11,
         imgSrc : require("../img/books/book33.jpeg")
     },
@@ -302,6 +333,7 @@ export default [
         date : "2023-01-18",
         id : 34,
         event : false,
+        animation : false,
         salesValue : 16,
         imgSrc : require("../img/books/book34.jpeg")
     },
@@ -311,6 +343,7 @@ export default [
         date : "2023-01-03",
         id : 35,
         event : false,
+        animation : false,
         salesValue : 40,
         imgSrc : require("../img/books/book35.jpeg")
     },
@@ -320,6 +353,7 @@ export default [
         date : "2023-01-01",
         id : 36,
         event : false,
+        animation : false,
         salesValue : 55,
         imgSrc : require("../img/books/book36.jpeg")
     },
@@ -329,6 +363,7 @@ export default [
         date : "2023-01-29",
         id : 37,
         event : false,
+        animation : false,
         salesValue : 101,
         imgSrc : require("../img/books/book37.jpeg")
     },
@@ -338,6 +373,7 @@ export default [
         date : "2023-01-14",
         id : 38,
         event : false,
+        animation : false,
         salesValue : 31,
         imgSrc : require("../img/books/book38.jpeg")
     },
@@ -347,6 +383,7 @@ export default [
         date : "2023-01-08",
         id : 39,
         event : false,
+        animation : false,
         salesValue : 21,
         imgSrc : require("../img/books/book39.jpeg")
     }
