@@ -1,5 +1,5 @@
 <template>
-    <header>
+    <header :class="{popup : popup === true}">
         <section class="section top-section">
             <ul class="top-nav">
                 <li>
@@ -70,12 +70,16 @@ export default {
   components: { BookClassWrap },
   data () {
     return {
-        bookType : "comic"
+        bookType : "comic",
+        popup : false
     }
   },
   methods: {
     activeBookList(type) {
         this.bookType = type.contentType
+    },
+    bookAnimation() {
+        this.popup = !this.popup
     }
   }
 }
@@ -83,6 +87,9 @@ export default {
 
 <style lang="scss">
     header {
+        &.popup {position: relative;
+            &::after {}
+        }
         .section {display: flex; justify-content: space-between;
             &.top-section {color: #fff; position: relative;
                 &::after {display: block; content: ''; width: 100%; position: fixed; background: rgb(34, 146, 226); height: 4rem; z-index: -1; left: 0;}

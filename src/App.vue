@@ -6,7 +6,6 @@
 import "./assets/css/common.css"
 import DefaultLayout from './components/DefaultLayout.vue'
 
-
 export default {
   name: 'App',
   components: {
