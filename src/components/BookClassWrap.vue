@@ -21,6 +21,7 @@ import bookData from "./../assets/data/bookData.js"
  
 export default {
   props:['menuTitle','contentType','active','bookType'],
+  name : 'BookClassWrap',
   data () {
     return {
       bookData,
@@ -38,7 +39,7 @@ export default {
     bookInfo(book) {
       this.$parent.bookAnimation()
       this.activeBook = !this.activeBook
-      let [...rank] = bookData.sort((a,b)=>b.salesValue - a.salesValue)
+      let rank = [...bookData].sort((a,b)=>b.salesValue - a.salesValue)
       rank.map((v)=>{
         if(v.title === book.title) this.bookRank = v;
       })

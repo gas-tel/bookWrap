@@ -386,5 +386,15 @@ export default [
         animation : false,
         salesValue : 21,
         imgSrc : require("../img/books/book39.jpeg")
+    },
+    {
+        title : "소설가라는 이상한 직업",
+        content : "essay",
+        date : "2023-03-01",
+        id : 40,
+        event : true,
+        animation : false,
+        salesValue : 15,
+        imgSrc : require("../img/books/book41.jpg")
     }
 ]
