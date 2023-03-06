@@ -34,8 +34,9 @@
             <li>
                 <a href="">My page</a>
             </li>
-            <li>
-                <a href="">cart</a>
+            <li class="cart">
+                <a href=""><i class="xi-cart-o"></i></a>
+                <span class="cart_count">{{cart}}</span>
             </li>
         </ul>
     </section>
@@ -53,7 +54,17 @@ export default {
   },
   data() {
     return {
-      data
+      data,
+      cart : 0,
+    }
+  },
+  methods : {
+    cartSum() {
+        const _this = this
+        this.cart = 0;
+        data.map(function(v){
+          if(v.cart === true) _this.cart++
+      })
     }
   }
 }
@@ -61,8 +72,14 @@ export default {
 
 <style lang="scss">
   #app {margin: 0 auto;}
-
-  header {
+  header {position: fixed; width: 100%; z-index: 10000; top: 0;
       &.popup {position: relative;}
+      .users {
+        .cart {font-size: 2rem; position: relative;
+          .cart_count {position: absolute; font-size: 1rem; background: #fff; border-radius: 50%; color: #2292e2; width: 1.5rem; height: 1.5rem; display: flex; align-items: center; justify-content: center;
+            position: absolute; top: -.5rem; right: .5rem;
+          }
+        }
+      }
   }
 </style>

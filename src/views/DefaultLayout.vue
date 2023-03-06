@@ -1,13 +1,7 @@
 <template>
     <section class="section sch-section">
         <div class="sch-wrap">
-            <div class="sch-box">
-                <select name="" id="">
-                    <option value="">All</option>
-                </select>
-                <input type="text" placeholder="">
-                <button class="sch_btn">Search</button>
-            </div>
+            <SearchBox/>
             <ul class="sch-categoty">
                 <BookClassWrap 
                     menuTitle="comic"
@@ -36,9 +30,11 @@
 </template>
 
 <script>
+import SearchBox from '@/components/SearchBox.vue'
 import BookClassWrap from './../components/BookClassWrap.vue'
+
 export default {
-  components: { BookClassWrap },
+  components: { BookClassWrap, SearchBox },
   name : 'DefaultLayout',
   data () {
     return {
@@ -58,11 +54,11 @@ export default {
 </script>
 
 <style lang="scss">
-    .section {display: flex; justify-content: space-between;
+    .section {display: flex; justify-content: space-between; 
         &.top-section {color: #fff; position: relative;
-            &::after {display: block; content: ''; width: 100%; position: fixed; background: rgb(34, 146, 226); height: 4rem; z-index: -1; left: 0;}
+            &::after {display: block; content: ''; width: 100%; position: fixed; background: rgb(34, 146, 226); height: 4.5rem; z-index: -1; left: 0;}
         }
-        &.sch-section {height: 90rem; align-items: baseline;}
+        &.sch-section {height: 90rem; align-items: baseline; margin-top: 4rem;}
     }
     .top-nav,.users {display: flex; align-items: center; padding: 1rem 0;
         li {font-size: 1.4rem; position: relative; padding-right: 1.5rem;
