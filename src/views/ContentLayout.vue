@@ -67,6 +67,9 @@ export default {
         cartBtn(book) {
             book.cart = !book.cart
             this.$parent.$parent.cartSum()
+        },
+        contentBtn(bookType) {
+            this.$parent.topNavBtn(bookType)
         }
     }
 }
@@ -90,7 +93,7 @@ export default {
                 }
             }
         }
-        .book {position: relative; width: 20rem; height: 29rem; -webkit-perspective: 1000px; perspective: 1000px; -webkit-transform-style: preserve-3d; transform-style: preserve-3d; margin-bottom: 2rem;
+        .book {position: relative; width: 20rem; height: 29rem; -webkit-perspective: 1000px; perspective: 1000px; -webkit-transform-style: preserve-3d; transform-style: preserve-3d;
             .book_front {transform: rotateY(-0) translateZ(0);  position: absolute; width: 100%; height: 100%; z-index: 9999;
                 & > span {
                     &:first-child {background-color: #eee;}

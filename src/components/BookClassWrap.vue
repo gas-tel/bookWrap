@@ -1,6 +1,5 @@
 <template>
-  <!-- <li :class="menuTitle"> -->
-    <li :class="{active : this.bookType === menuTitle, menuTitle}">
+  <li :class="{active : this.bookType === menuTitle, menuTitle}">
     <button @click="clickBookClass(this)">{{menuTitle}}</button>
     <ul class="book-list-ui" v-if="bookType === this.contentType">
       <li v-for="book in bookData.filter((v) => v.content === this.contentType)" :key="book" :class="{bookInfo : book.animation === true}">
@@ -56,13 +55,14 @@ export default {
 
 <style lang="scss" scoped>
   .menuTitle {
+    button {color: transparent; -webkit-text-stroke: 1px #fff; font-weight: bold; font-size: 5rem;}
     &.active {
-      button {color: rgb(34, 146, 226); text-shadow: none; font-weight: 700;}
+      button {color: #992dfa; -webkit-text-stroke: 0; text-shadow: none; font-weight: 700;}
     }
   }
-  .book-list-ui {position: absolute; left: 0rem; top: calc(-50vh + 0rem); transform: rotate(-0deg); width: 100%;
+  .book-list-ui {position: absolute; transform: rotate(-0deg) translateX(-50%); width: 100%; left: 50%; margin-left: 8rem;
   animation-duration: .2s; animation-fill-mode: forwards; animation-name: slidein; animation-timing-function: ease-in; 
-    li {position: absolute; width: 40rem; height: 35rem; border-radius: 5px;animation-fill-mode: forwards; animation-timing-function: ease-in; position: absolute; transform: .3s all;
+    li {position: absolute; border-radius: 5px;animation-fill-mode: forwards; animation-timing-function: ease-in; position: absolute; transform: .3s all;
         &.bookInfo {animation-duration: 5s; display: flex;
           @for $i from 0 to 11 {
             &:nth-child(#{$i}) {animation-name: slideEnd+$i; z-index: $i*1; animation-duration: 1s; animation-timing-function: ease;}
@@ -84,7 +84,7 @@ export default {
         &:hover {
           img {cursor: pointer;}
         }
-      img { width: 25rem; height: 35rem; box-shadow: 0px 4px 10px #00000014;}
+      img {width: 25rem; height: 35rem; box-shadow: 0px 4px 10px #00000014;}
       @for $i from 0 to 11 {
         &:nth-child(#{$i}) {animation-duration: $i*.05s; animation-name: slideNode+$i;}
       }
@@ -94,10 +94,10 @@ export default {
 
   @keyframes slidein {
     0% {
-      left: 0rem; top: calc(-50vh + 10rem); transform: rotate(-0deg);
+      top: calc(-50vh + 10rem); transform: translateX(-50%);
     }
     100% {
-      left: -10rem; top: calc(0vh + 28rem);
+      top: calc(0vh + 28rem); transform: translateX(-50%);
     }
   }
   @for $i from 1 to 11 {
@@ -110,7 +110,7 @@ export default {
           left: 0; transform: rotate(-3deg);
         }
         100% {
-          left: ($i * 60px); top: ( + $i * -10px); transform: rotate((-15 + $i * 4deg));
+          left: ($i * 80px); top: ( + $i * -10px); transform: rotate((-15 + $i * 4deg));
         }
       } @else {
         0% {
@@ -120,7 +120,7 @@ export default {
           left: 0; transform: rotate(-10deg);
         }
         100% {
-          left: ($i * 65px); top: (-90+ $i * 10px); transform: rotate((-15 + $i * 3deg));
+          left: ($i * 80px); top: (-90+ $i * 10px); transform: rotate((-15 + $i * 3deg));
         }
       }
     }
@@ -129,26 +129,26 @@ export default {
     @keyframes slideEnd#{$i} {
       @if($i < 5){
         0% {
-          left: ($i * 60px); transform: rotate((-15 + $i * 4deg)); top: (-90+ $i * 10px);  z-index: 0 !important;
+          left: ($i * 80px); transform: rotate((-15 + $i * 4deg)); top: (-90+ $i * 10px);  z-index: 0 !important;
         }
         10% {
-          left: ($i * 60px); transform: rotate((0deg));  top: (-90+ $i * 10px);
+          left: ($i * 80px); transform: rotate((0deg));  top: (-90+ $i * 10px);
         }
         30% {
-          left: ($i * 60px); top: (-190+ $i * 10px);  z-index: 100 !important;
+          left: ($i * 80px); top: (-190+ $i * 10px);  z-index: 100 !important;
         }
         100% {
           left : 0; top: (-190+ $i * 10px); transform: rotate((0deg));  z-index: 100 !important;
         }
       } @else {
         0% {
-          left: ($i * 65px); transform: rotate((-15 + $i * 4deg)); top: (-90+ $i * 10px);  z-index: 0 !important;
+          left: ($i * 80px); transform: rotate((-15 + $i * 4deg)); top: (-90+ $i * 10px);  z-index: 0 !important;
         }
         10% {
-          left: ($i * 65px); transform: rotate((0deg));  top: (-90+ $i * 10px);
+          left: ($i * 80px); transform: rotate((0deg));  top: (-90+ $i * 10px);
         }
         30% {
-          left: ($i * 65px); top: (-190+ $i * 10px);
+          left: ($i * 80px); top: (-190+ $i * 10px);
         }
         100% {
           left : 0; top: (-190+ $i * 10px); transform: rotate((0deg));  z-index: 100 !important;
