@@ -13,42 +13,30 @@
         <ul class="my_page_side_menu">
             <li class="active">
                 <a href="">
-                    <span>주문/배송조회</span>
+                    <span>배송지 조회</span>
                     <i class="xi-angle-right-min"></i>
                 </a>
             </li>
             <li>
                 <a href="">
-                    <span>반품/환불현황</span>
+                    <span>주문 내역</span>
                     <i class="xi-angle-right-min"></i>
                 </a>
             </li>
             <li>
                 <a href="">
-                    <span>나의 상담 내역</span>
-                    <i class="xi-angle-right-min"></i>
-                </a>
-            </li>
-            <li class="">
-                <a href="">
-                    <span>배송지 정보</span>
+                    <span>WISH LIST</span>
                     <i class="xi-angle-right-min"></i>
                 </a>
             </li>
             <li>
                 <a href="">
-                    <span>수신동의 내역</span>
-                    <i class="xi-angle-right-min"></i>
-                </a>
-            </li>
-            <li>
-                <a href="">
-                    <span>회원정보 수정/탈퇴</span>
+                    <span>회원정보 수정</span>
                     <i class="xi-angle-right-min"></i>
                 </a>
             </li>
         </ul>
-        <UserAddressInfo/>
+        <UserAddressInfo v-if="addressInfo"/>
     </div>
   </div>
 </template>
@@ -63,17 +51,14 @@ export default {
     },
     data() {
         return {
-            userData
+            userData,
+            addressInfo : true
         }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-    .btn_move {color: #686868; font-size: 1.4rem; border: 1px solid #ccc; padding: .4rem 1rem; height: fit-content; display: flex; align-items: center;
-            background: #fff;
-        i {width: 0.85rem;}
-    }
     .section.top-section::after {background: #fff !important;}
     .mypage_warp {background: #fff; height: 100vh; width: 128rem; margin: 0 auto; margin-top: 10rem;
         .my_page_title {display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;

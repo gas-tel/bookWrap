@@ -1,35 +1,36 @@
 <template>
   <div class="my_page_content_list">
+    <KakaoAddressPopup v-if="kakaoPopup"/>
     <div class="my_page_content_row">
         <div class="check_box">
-            <strong class="title">배송지 정보</strong>
+            <strong class="title">배송지 조회</strong>
         </div>
-        <div class="check_row check_delivery">
-            <strong class="title">기본배송지</strong>
-            <div class="check_order_box">
+        <div class="check_row check_delivery" v-for="user in userData.address" :key="user">
+            <strong class="title" v-if="user.normal === true">기본 배송지</strong>
+            <div class="check_order_box" v-if="user.normal === true">
                 <div class="left">
                     <div class="box">
-                        <strong><i class="xi-maker"></i>우리집</strong>
+                        <strong><i class="xi-maker"></i>{{user.addName}}</strong>
                     </div>
                     <div class="box">
-                        <span>홍길동</span>
-                        <span>010-5555-6666</span>
+                        <span>{{user.name}}</span>
+                        <span>{{user.addPhone}}</span>
                     </div>
                     <div class="box">
-                        <span>(34561)</span>
-                        <span>대전광역시 유성구 문지로 282-19 (주)플랜아이</span>
+                        <span>{{user.postCode}}</span>
+                        <span>{{user.address}}</span>
                     </div>
                 </div>
                 <div class="right">
                     <div class="box">
-                        <a href="" class="btn_move">기본배송지 수정</a>
+                        <button type="button" @click="kakaoPopupBtn()" class="btn_move">기본배송지 수정</button>
                     </div>
                 </div>
             </div>
         </div>
         <div class="check_row check_advice_list delivery">
             <div class="delivery_title">
-                <strong class="title">기본배송지</strong>
+                <strong class="title">기타 배송지</strong>
                 <div class="tab_box">
                     <button>선택항목을 기본배송지로</button>
                     <button>선택항목 삭제</button>
@@ -38,54 +39,25 @@
             <div class="check_advice_list_table">
                 <ul class="check_advice_list_table_head">
                     <li class="size_1"><input type="checkbox" name="" id=""></li>
-                    <li class="size_1">배송자명</li>
+                    <li class="size_1">배송지명</li>
                     <li class="size_2">받는 분</li>
                     <li class="size_2">연락처</li>
                     <li class="size_3">주소</li>
                     <li class="size_2">수정/삭제</li>
                 </ul>
-                <ul class="check_advice_list_table_body">
-                    <li>
+                <ul class="check_advice_list_table_body"  v-for="user in userData.address" :key="user">
+                    <li v-if="user.normal === false">
                         <ul class="check_advice_list_table_body_row">
                             <li class="size_1"><input type="checkbox" name="" id=""></li>
-                            <li class="size_1"><i class="xi-maker"></i><b>친정집</b></li>
-                            <li class="size_2">홍길동</li>
-                            <li class="size_2">010-1111-2222</li>
-                            <li class="size_3">(34561)대전광역시 유성구 문지로 282-19 (주)플랜아이</li>
+                            <li class="size_1"><i class="xi-maker"></i><b>{{user.addName}}</b></li>
+                            <li class="size_2">{{user.name}}</li>
+                            <li class="size_2">{{user.addPhone}}</li>
+                            <li class="size_3">{{user.address}}</li>
                             <li class="size_2">
-                                <button>수정</button>
+                                <button @click="kakaoPopupBtn()">수정</button>
                                 <button>삭제</button>
                             </li>
                         </ul>
-                    </li>
-                    <li>
-                        <ul class="check_advice_list_table_body_row">
-                            <li class="size_1"><input type="checkbox" name="" id=""></li>
-                            <li class="size_1"><i class="xi-maker"></i><b>친정집</b></li>
-                            <li class="size_2">홍길동</li>
-                            <li class="size_2">010-1111-2222</li>
-                            <li class="size_3">(34561)대전광역시 유성구 문지로 282-19 (주)플랜아이</li>
-                            <li class="size_2">
-                                <button>수정</button>
-                                <button>삭제</button>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                <button class="btn_add">신규배송지 추가</button>
-            </div>
-            <div class="check_advice_list_table">
-                <ul class="check_advice_list_table_head">
-                    <li class="size_1"><input type="checkbox" name="" id=""></li>
-                    <li class="size_1">배송자명</li>
-                    <li class="size_2">받는 분</li>
-                    <li class="size_2">연락처</li>
-                    <li class="size_3">주소</li>
-                    <li class="size_2">수정/삭제</li>
-                </ul>
-                <ul class="check_advice_list_table_body">
-                    <li>
-                        <span class="empty">현재 배송지가 없습니다. “신규배송지 추가”를 눌러 추가해주세요. </span>
                     </li>
                 </ul>
                 <button class="btn_add">신규배송지 추가</button>
@@ -96,12 +68,32 @@
 </template>
 
 <script>
-export default {
+import KakaoAddressPopup from '@/components/KakaoAddressPopup.vue';
+import userData from '@/assets/data/guest.js'
 
-}
+export default {
+    components : {
+        KakaoAddressPopup
+    },
+    data() {
+        return {
+            kakaoPopup : false,
+            userData : userData.guest1        
+        }
+    },
+    methods : {
+        kakaoPopupBtn() {
+            this.kakaoPopup = !this.kakaoPopup
+        }
+    }
+};
 </script>
 
 <style lang="scss">
+    .btn_move {color: #686868; font-size: 1.4rem; border: 1px solid #ccc; padding: .4rem 1rem; height: fit-content; display: flex; align-items: center;
+            background: #fff;
+        i {width: 0.85rem;}
+    }
     .my_page_content_list {width: calc(100% - 25rem); margin-left: 5rem;
         .my_page_content_row {
             .check_box {
