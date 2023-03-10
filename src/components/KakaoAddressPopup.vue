@@ -2,63 +2,129 @@
   <div class="kakao_popup_wrap">
     <ul class="check_order_advice_row">
         <li>
-            <strong class="form_name">새로운 배송지</strong>
+            <strong class="form_name">배송지 정보</strong>
             <span class="form">
-                <input type="text" v-model="postcode" placeholder="우편번호">
-                <input type="button" @click="execDaumPostcode()" value="우편번호 찾기">
-                <input type="text" id="address" placeholder="주소" :value="address" class="long">
+                <input 
+                  @input="name=$event.target.value" 
+                  :value="name" 
+                  type="text" name="" id="" placeholder="배송지명"><br><br>
+                <input 
+                  @input="addName=$event.target.value" 
+                  :value="addName" 
+                  type="text" name="" id="" placeholder="받는분"><br><br>
+                <input 
+                  @input="addPhone=$event.target.value" 
+                  :value="addPhone" 
+                  type="text" name="" id="" 
+                  placeholder="연락처"><br><br>
+                <input 
+                  @input="postcode=$event.target.value" 
+                  :value="postcode" 
+                  type="text" placeholder="우편번호">
+                <input 
+                  @click="execDaumPostcode()" 
+                  type="button" value="우편번호 찾기">
+                <input 
+                  @input="address=$event.target.value" 
+                  :value="address" 
+                  type="text" id="address" placeholder="주소" class="long">
             </span>
         </li>
     </ul>
     <div class="check_box">
         <button class="cancel" @click="popupCancel()">취소</button>
-        <button class="save">저장</button>
+        <button class="save" @click="addressSave()">저장</button>
     </div>
   </div>
 </template>
 
 <script>
+import guest from '@/assets/data/guest';
+
 export default {
-data() {
+  props : ['addIndex'],
+  data() {
     return {
-      postcode: "",
-      address: "",
-      extraAddress: "",
+      name : "",
+      addName : "",
+      addPhone : "",
+      postcode : "",
+      address : "",
+      extraAddress : "",
+      userData:guest,
     };
   },
-  methods: {
-  popupCancel() {
-    this.$parent.kakaoPopupBtn()
+  created() {
+    if(this.addIndex !== undefined){
+      this.name = guest.guest1.address[this.addIndex].name
+      this.addName = guest.guest1.address[this.addIndex].addName
+      this.addPhone = guest.guest1.address[this.addIndex].addPhone
+      this.postcode = guest.guest1.address[this.addIndex].postcode
+      this.address = guest.guest1.address[this.addIndex].address
+      this.extraAddress = guest.guest1.address[this.addIndex].extraAddress
+    } else {
+      this.name = ""
+      this.addName = ""
+      this.addPhone = ""
+      this.postcode = ""
+      this.address = ""
+      this.extraAddress = ""
+    }
   },
-    execDaumPostcode() {
+  methods: {
+    popupCancel() {
+      this.$parent.kakaoPopupBtn()
+    },
+    addressSave() {
+      if(this.addIndex !== undefined){
+        this.userData.guest1.address[this.addIndex].name = this.name
+        this.userData.guest1.address[this.addIndex].addName = this.addName
+        this.userData.guest1.address[this.addIndex].addPhone = this.addPhone
+        this.userData.guest1.address[this.addIndex].postcode = this.postcode
+        this.userData.guest1.address[this.addIndex].address = this.address
+      } else {
+        this.userData.guest1.address.push(
+          {
+            name : this.name,
+            addName : this.addName,
+            addPhone : this.addPhone,
+            postcode : this.postcode,
+            address : this.address
+          }
+        )
+      }
+      console.log(this.userData);
+      this.$forceUpdate();
+      this.popupCancel()
+    },
+  execDaumPostcode() {
       new window.daum.Postcode({
-        oncomplete: (data) => {
-          if (this.extraAddress !== "") {
-            this.extraAddress = "";
+      oncomplete: (data) => {
+        if (this.extraAddress !== "") {
+          this.extraAddress = "";
+        }
+        if (data.userSelectedType === "R") {
+          // 사용자가 도로명 주소를 선택했을 경우
+          this.address = data.roadAddress;
+        } else {
+          // 사용자가 지번 주소를 선택했을 경우(J)
+          this.address = data.jibunAddress;
+        }
+        // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+        if (data.userSelectedType === "R") {
+          // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+          // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+          if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
+          this.extraAddress += data.bname;
           }
-          if (data.userSelectedType === "R") {
-            // 사용자가 도로명 주소를 선택했을 경우
-            this.address = data.roadAddress;
-          } else {
-            // 사용자가 지번 주소를 선택했을 경우(J)
-            this.address = data.jibunAddress;
+          // 건물명이 있고, 공동주택일 경우 추가한다.
+          if (data.buildingName !== "" && data.apartment === "Y") {
+            this.extraAddress +=
+            this.extraAddress !== ""
+              ? `, ${data.buildingName}`
+              : data.buildingName;
           }
- 
-          // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-          if (data.userSelectedType === "R") {
-            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-            if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
-              this.extraAddress += data.bname;
-            }
-            // 건물명이 있고, 공동주택일 경우 추가한다.
-            if (data.buildingName !== "" && data.apartment === "Y") {
-              this.extraAddress +=
-                this.extraAddress !== ""
-                  ? `, ${data.buildingName}`
-                  : data.buildingName;
-            }
-            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+          // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
             if (this.extraAddress !== "") {
               this.extraAddress = `(${this.extraAddress})`;
             }

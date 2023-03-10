@@ -1,11 +1,11 @@
 <template>
   <div class="my_page_content_list">
-    <KakaoAddressPopup v-if="kakaoPopup"/>
+    <KakaoAddressPopup v-if="kakaoPopup" :addIndex="addIndex"/>
     <div class="my_page_content_row">
         <div class="check_box">
             <strong class="title">배송지 조회</strong>
         </div>
-        <div class="check_row check_delivery" v-for="user in userData.address" :key="user">
+        <div class="check_row check_delivery" v-for="(user, index) in userData.address" :key="user">
             <strong class="title" v-if="user.normal === true">기본 배송지</strong>
             <div class="check_order_box" v-if="user.normal === true">
                 <div class="left">
@@ -17,13 +17,13 @@
                         <span>{{user.addPhone}}</span>
                     </div>
                     <div class="box">
-                        <span>{{user.postCode}}</span>
+                        <span>{{user.postcode}}</span>
                         <span>{{user.address}}</span>
                     </div>
                 </div>
                 <div class="right">
                     <div class="box">
-                        <button type="button" @click="kakaoPopupBtn()" class="btn_move">기본배송지 수정</button>
+                        <button type="button" @click="kakaoPopupBtn(index)" class="btn_move">기본배송지 수정</button>
                     </div>
                 </div>
             </div>
@@ -32,35 +32,34 @@
             <div class="delivery_title">
                 <strong class="title">기타 배송지</strong>
                 <div class="tab_box">
-                    <button>선택항목을 기본배송지로</button>
                     <button>선택항목 삭제</button>
                 </div>
             </div>
             <div class="check_advice_list_table">
                 <ul class="check_advice_list_table_head">
-                    <li class="size_1"><input type="checkbox" name="" id=""></li>
                     <li class="size_1">배송지명</li>
                     <li class="size_2">받는 분</li>
                     <li class="size_2">연락처</li>
                     <li class="size_3">주소</li>
                     <li class="size_2">수정/삭제</li>
+                    <li class="size_2">배송지</li>
                 </ul>
-                <ul class="check_advice_list_table_body"  v-for="user in userData.address" :key="user">
+                <ul class="check_advice_list_table_body"  v-for="(user, index) in userData.address" :key="user">
                     <li v-if="user.normal === false">
                         <ul class="check_advice_list_table_body_row">
-                            <li class="size_1"><input type="checkbox" name="" id=""></li>
                             <li class="size_1"><i class="xi-maker"></i><b>{{user.addName}}</b></li>
                             <li class="size_2">{{user.name}}</li>
                             <li class="size_2">{{user.addPhone}}</li>
-                            <li class="size_3">{{user.address}}</li>
+                            <li class="size_3">{{user.postcode}}{{user.address}}</li>
                             <li class="size_2">
-                                <button @click="kakaoPopupBtn()">수정</button>
+                                <button @click="kakaoPopupBtn(index)">수정</button>
                                 <button>삭제</button>
                             </li>
+                            <li class="size_2"><button @click="propsAddressIndex(index)">기본 배송지로</button></li>
                         </ul>
                     </li>
                 </ul>
-                <button class="btn_add">신규배송지 추가</button>
+                <button class="btn_add" @click="kakaoPopupBtn(undefined)">신규배송지 추가</button>
             </div>
         </div>
     </div>
@@ -78,14 +77,22 @@ export default {
     data() {
         return {
             kakaoPopup : false,
-            userData : userData.guest1        
+            userData : userData.guest1,        
+            addIndex : -1,
         }
     },
     methods : {
-        kakaoPopupBtn() {
+        kakaoPopupBtn(index) {
             this.kakaoPopup = !this.kakaoPopup
+            this.addIndex = index
+        },
+        propsAddressIndex(index) {
+            userData.guest1.address.map((v)=> {if(v.normal === true) v.normal = false})
+            userData.guest1.address[index].normal = true
+            this.$forceUpdate();
         }
-    }
+    },
+    watch : {}
 };
 </script>
 

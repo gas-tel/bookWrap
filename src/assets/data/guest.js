@@ -3,25 +3,27 @@ export default {
         name : "guest",
         address : [
             {
-                name : "guest",
+                name : "home",
                 addName : "우리집",
                 addPhone : "010-1111-2222",
-                postCode : "(34561)",
-                address : "대전광역시 동구 용전동 11-1 305호",
+                postcode : "(34561)",
+                address : "대전광역시 동구 용전동 11-1",
                 normal : true
             },
             {
-                name : "guest",
+                name : "company",
                 addName : "회사",
                 addPhone : "010-1111-2222",
-                address : "(34561)대전광역시 중구 선화동 38-5 1층",
+                postcode : "(34561)",
+                address : "대전광역시 중구 선화동 38-5",
                 normal : false
             },
             {
-                name : "guest",
+                name : "family",
                 addName : "누나집",
                 addPhone : "010-1111-2222",
-                address : "(34561)대전광역시 서구 도마동 101 5층",
+                postcode : "(34561)",
+                address : "대전광역시 서구 도마동 101",
                 normal : false
             },
         ]
