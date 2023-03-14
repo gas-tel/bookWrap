@@ -43,7 +43,6 @@ export default {
         if(v.title === book.title) this.bookRank = v;
       })
       this.bookRank = rank.findIndex(i => i.title === book.title)+1;
-      console.log(this.bookRank);
       book.animation = !book.animation
     },
     bgClick(book){

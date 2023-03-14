@@ -36,24 +36,34 @@
                 </a>
             </li>
         </ul>
-        <UserAddressInfo v-if="addressInfo"/>
+        <AddressInfo v-if="addressInfo"/>
+        <OrderList v-if="orderList"/>
     </div>
   </div>
 </template>
 
 <script>
-import UserAddressInfo from '@/components/UserAddressInfo.vue'
+import AddressInfo from '@/components/My_UserAddressInfo.vue'
+import OrderList from '@/components/My_OrderList.vue'
 import userData from './../assets/data/guest.js'
 
 export default {
     components : {
-        UserAddressInfo,
+        AddressInfo,
+        OrderList
     },
     data() {
         return {
             userData,
-            addressInfo : true
+            addressInfo : true,
+            orderList : false
         }
+    },
+    computed : {
+    },
+    methods : {
+    },
+    watch : {
     }
 }
 </script>

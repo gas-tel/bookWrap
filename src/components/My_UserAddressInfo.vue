@@ -5,7 +5,7 @@
         <div class="check_box">
             <strong class="title">배송지 조회</strong>
         </div>
-        <div class="check_row check_delivery" v-for="(user, index) in userData.address" :key="user">
+        <div class="check_row check_delivery" v-for="(user, index) in this.userData" :key="user">
             <strong class="title" v-if="user.normal === true">기본 배송지</strong>
             <div class="check_order_box" v-if="user.normal === true">
                 <div class="left">
@@ -31,9 +31,6 @@
         <div class="check_row check_advice_list delivery">
             <div class="delivery_title">
                 <strong class="title">기타 배송지</strong>
-                <div class="tab_box">
-                    <button>선택항목 삭제</button>
-                </div>
             </div>
             <div class="check_advice_list_table">
                 <ul class="check_advice_list_table_head">
@@ -44,7 +41,7 @@
                     <li class="size_2">수정/삭제</li>
                     <li class="size_2">배송지</li>
                 </ul>
-                <ul class="check_advice_list_table_body"  v-for="(user, index) in userData.address" :key="user">
+                <ul class="check_advice_list_table_body"  v-for="(user, index) in this.userData" :key="user">
                     <li v-if="user.normal === false">
                         <ul class="check_advice_list_table_body_row">
                             <li class="size_1"><i class="xi-maker"></i><b>{{user.addName}}</b></li>
@@ -53,7 +50,7 @@
                             <li class="size_3">{{user.postcode}}{{user.address}}</li>
                             <li class="size_2">
                                 <button @click="kakaoPopupBtn(index)">수정</button>
-                                <button>삭제</button>
+                                <button @click="addressDelete(index)">삭제</button>
                             </li>
                             <li class="size_2"><button @click="propsAddressIndex(index)">기본 배송지로</button></li>
                         </ul>
@@ -68,16 +65,23 @@
 
 <script>
 import KakaoAddressPopup from '@/components/KakaoAddressPopup.vue';
-import userData from '@/assets/data/guest.js'
+import userDataJs from '@/assets/data/guest.js'
+import { useStore } from "vuex"
 
 export default {
+    setup() {
+        const store = useStore();
+        const addUserDate = (data) => store.commit("userAdd", data)
+
+        return { addUserDate }
+    },
     components : {
         KakaoAddressPopup
     },
     data() {
         return {
             kakaoPopup : false,
-            userData : userData.guest1,        
+            userData : userDataJs.guest1.address,        
             addIndex : -1,
         }
     },
@@ -85,14 +89,17 @@ export default {
         kakaoPopupBtn(index) {
             this.kakaoPopup = !this.kakaoPopup
             this.addIndex = index
+            console.log(this);
         },
         propsAddressIndex(index) {
-            userData.guest1.address.map((v)=> {if(v.normal === true) v.normal = false})
-            userData.guest1.address[index].normal = true
+            this.userData.map((v)=> {if(v.normal === true) v.normal = false})
+            this.userData[index].normal = true
             this.$forceUpdate();
-        }
+        },
+        addressDelete(index) {
+            this.userData.splice(index, 1)
+        },
     },
-    watch : {}
 };
 </script>
 

@@ -42,6 +42,8 @@
 import guest from '@/assets/data/guest';
 
 export default {
+  setup(){
+  },
   props : ['addIndex'],
   data() {
     return {
@@ -50,8 +52,9 @@ export default {
       addPhone : "",
       postcode : "",
       address : "",
+      normal : false,
       extraAddress : "",
-      userData:guest,
+      userAddress:guest,
     };
   },
   created() {
@@ -59,6 +62,7 @@ export default {
       this.name = guest.guest1.address[this.addIndex].name
       this.addName = guest.guest1.address[this.addIndex].addName
       this.addPhone = guest.guest1.address[this.addIndex].addPhone
+      this.normal = guest.guest1.address[this.addIndex].normal
       this.postcode = guest.guest1.address[this.addIndex].postcode
       this.address = guest.guest1.address[this.addIndex].address
       this.extraAddress = guest.guest1.address[this.addIndex].extraAddress
@@ -66,6 +70,7 @@ export default {
       this.name = ""
       this.addName = ""
       this.addPhone = ""
+      this.normal = false
       this.postcode = ""
       this.address = ""
       this.extraAddress = ""
@@ -77,24 +82,24 @@ export default {
     },
     addressSave() {
       if(this.addIndex !== undefined){
-        this.userData.guest1.address[this.addIndex].name = this.name
-        this.userData.guest1.address[this.addIndex].addName = this.addName
-        this.userData.guest1.address[this.addIndex].addPhone = this.addPhone
-        this.userData.guest1.address[this.addIndex].postcode = this.postcode
-        this.userData.guest1.address[this.addIndex].address = this.address
+        this.userAddress.guest1.address[this.addIndex].name = this.name
+        this.userAddress.guest1.address[this.addIndex].addName = this.addName
+        this.userAddress.guest1.address[this.addIndex].addPhone = this.addPhone
+        this.userAddress.guest1.address[this.addIndex].normal = this.normal
+        this.userAddress.guest1.address[this.addIndex].postcode = this.postcode
+        this.userAddress.guest1.address[this.addIndex].address = this.address
       } else {
-        this.userData.guest1.address.push(
-          {
+        const userInfo = {
             name : this.name,
             addName : this.addName,
             addPhone : this.addPhone,
+            normal : false,
             postcode : this.postcode,
             address : this.address
           }
-        )
+
+        this.$parent.addUserDate(userInfo)
       }
-      console.log(this.userData);
-      this.$forceUpdate();
       this.popupCancel()
     },
   execDaumPostcode() {
