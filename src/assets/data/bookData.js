@@ -45,8 +45,8 @@ export default [
     },
     {
         title : "K 배터리 레볼루션",
-        like : false,
-        cart : false,
+        like : true,
+        cart : true,
         content : "essay",
         date : "2022-11-05",
         id : 5,
@@ -386,7 +386,7 @@ export default [
     },
     {
         title : "점프 투 파이썬",
-        like : false,
+        like : true,
         cart : false,
         content : "education",
         date : "2023-01-01",

@@ -1,7 +1,7 @@
 <template>
   <div class="mypage_warp">
     <div class="my_page_title">
-        <h3 class="private_title">마이페이지</h3>
+        <h3 class="private_title">MY PAGE</h3>
         <div class="private_info">
             <span class="user">
                 <strong><em>{{userData.guest1.name}}</em> 님</strong>의 My page
@@ -11,33 +11,46 @@
     </div>
     <div class="my_page_container">
         <ul class="my_page_side_menu">
-            <li class="active">
-                <a href="">
-                    <span>배송지 조회</span>
+            <li :class="{active : this.goList === 'ADDRESS INFO'}">
+                <button @click="goBtn('ADDRESS INFO')">
+                    <span>ADDRESS INFO
+                    </span>
                     <i class="xi-angle-right-min"></i>
-                </a>
+                </button>
             </li>
-            <li>
-                <a href="">
-                    <span>주문 내역</span>
-                    <i class="xi-angle-right-min"></i>
-                </a>
-            </li>
-            <li>
-                <a href="">
+            <li :class="{active : this.goList === 'WISH LIST'}">
+                <button @click="goBtn('WISH LIST')">
                     <span>WISH LIST</span>
                     <i class="xi-angle-right-min"></i>
-                </a>
+                </button>
             </li>
-            <li>
-                <a href="">
-                    <span>회원정보 수정</span>
+            <li :class="{active : this.goList === 'BASKET'}">
+                <button @click="goBtn('BASKET')">
+                    <span>BASKET</span>
                     <i class="xi-angle-right-min"></i>
-                </a>
+                </button>
+            </li>
+            <li :class="{active : this.goList === 'ORDER LIST'}">
+                <button @click="goBtn('ORDER LIST')">
+                    <span>ORDER LIST</span>
+                    <i class="xi-angle-right-min"></i>
+                </button>
             </li>
         </ul>
-        <AddressInfo v-if="addressInfo"/>
-        <OrderList v-if="orderList"/>
+                {{this.page}}
+                {{page}}
+                {{paged}}
+        <div class="my_page_content_list">
+            <div class="my_page_content_row">
+                <div class="check_box">
+                    <strong class="title">{{goList}}</strong>
+                </div>
+                <AddressInfo v-if="goList === 'ADDRESS INFO'"/>
+                <WishList v-if="goList === 'WISH LIST'"/>
+                <BasketList v-if="goList === 'BASKET'"/>
+                <OrderList v-if="goList === 'ORDER LIST'"/>
+            </div>
+        </div>
     </div>
   </div>
 </template>
@@ -46,29 +59,44 @@
 import AddressInfo from '@/components/My_UserAddressInfo.vue'
 import OrderList from '@/components/My_OrderList.vue'
 import userData from './../assets/data/guest.js'
+import WishList from '@/components/My_wishList.vue'
+import BasketList from '@/components/My_ basket.vue'
 
 export default {
+    props : ['type'],
     components : {
         AddressInfo,
-        OrderList
+        OrderList,
+        WishList,
+        BasketList
     },
     data() {
         return {
             userData,
-            addressInfo : true,
-            orderList : false
+            goList: 'ADDRESS INFO',
+            paged : this.page
         }
     },
     computed : {
     },
     methods : {
+        goBtn(list) {
+            this.goList = list
+        },
     },
     watch : {
-    }
+    },
 }
 </script>
 
 <style lang="scss" scoped>
+    .my_page_content_list {width: calc(100% - 25rem); margin-left: 5rem;
+        .my_page_content_row {
+            .check_box {
+                    .title {color: #fff; background-color: #444; font-size: 2rem; padding: 2rem; display: block; text-align: left; margin-bottom: 5.4rem;}
+                }
+        }
+    }
     .section.top-section::after {background: #fff !important;}
     .mypage_warp {background: #fff; height: 100vh; width: 128rem; margin: 0 auto; margin-top: 10rem;
         .my_page_title {display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;

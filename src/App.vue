@@ -35,7 +35,11 @@
                 <router-link to="./myPage" @click="topNavBtn('mypage')" :class="{active : navActive === 'mypage'}">MY PAGE</router-link>
             </li>
             <li class="cart">
-                <a href=""><i class="xi-cart-o"></i></a>
+                <router-link :to="{
+                  name: 'myPage', 
+                  query: {type: 'BASKET'}}" @click="topNavBtn('mypage')" :class="{active : navActive === 'cart'}">
+                  <i class="xi-cart-o"></i>
+                </router-link>
                 <span class="cart_count">{{cart}}</span>
             </li>
         </ul>
@@ -79,6 +83,9 @@ export default {
       this.navActive = focus
     }
   },
+  created() {
+      this.cartSum();
+  }
 }
 </script>
 
