@@ -34,10 +34,11 @@
             <li>
                 <router-link to="./myPage" @click="topNavBtn('mypage')" :class="{active : navActive === 'mypage'}">MY PAGE</router-link>
             </li>
-            <li class="cart">
-                <router-link :to="{
+            <li class="cart" >
+                <router-link @updateData="updateData" :mypagetype="mypagetype"
+                :to="{
                   name: 'myPage', 
-                  query: {type: 'BASKET'}}" @click="topNavBtn('mypage')" :class="{active : navActive === 'cart'}">
+                  query: {type: 'BASKET'}}" @click="[topNavBtn('mypage')]" :class="{active : navActive === 'mypage'}">
                   <i class="xi-cart-o"></i>
                 </router-link>
                 <span class="cart_count">{{cart}}</span>
@@ -69,6 +70,7 @@ export default {
       data,
       cart : 0,
       navActive : 'home',
+      mypagetype : 'BASKET'
     }
   },
   methods : {
@@ -81,7 +83,7 @@ export default {
     },
     topNavBtn(focus) {
       this.navActive = focus
-    }
+    },
   },
   created() {
       this.cartSum();

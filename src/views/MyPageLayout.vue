@@ -37,9 +37,6 @@
                 </button>
             </li>
         </ul>
-                {{this.page}}
-                {{page}}
-                {{paged}}
         <div class="my_page_content_list">
             <div class="my_page_content_row">
                 <div class="check_box">
@@ -63,7 +60,7 @@ import WishList from '@/components/My_wishList.vue'
 import BasketList from '@/components/My_ basket.vue'
 
 export default {
-    props : ['type'],
+    props : ['type','mypagetype'],
     components : {
         AddressInfo,
         OrderList,
@@ -74,7 +71,8 @@ export default {
         return {
             userData,
             goList: 'ADDRESS INFO',
-            paged : this.page
+            mypageType : this.mypagetype,
+            page : this.$route.query.type
         }
     },
     computed : {
@@ -83,9 +81,18 @@ export default {
         goBtn(list) {
             this.goList = list
         },
+        goBasket() {
+            if(this.page==='BASKET') this.goList = this.page
+        }
     },
     watch : {
+        $route(link){
+            if(link.fullPath === '/myPage?type=BASKET') this.goList = 'BASKET'
+        },
     },
+    mounted() {
+        this.goBasket()
+    }
 }
 </script>
 
