@@ -1,13 +1,469 @@
 <template>
-  장바구니
+  <div class="normal_row_container">
+    <h2 class="section_title">상품 결제하기</h2>
+    <div class="normal_row_wrap">
+        <div class="normal_row_wrap_title">
+            <strong>장바구니</strong>
+        </div>
+        <ul class="normal_row_wrap_content">
+          <li v-for="data in bookData.filter((v)=>v.cart===true)" :key="data">
+              <span class="row_img_box">
+                  <img :src="data.imgSrc" alt="">
+              </span>
+              <span class="item_info">
+                  <em class="item_info_class">{{data.content}}</em>
+                  <span class="item_info_title">{{data.title}}</span>
+                  <span class="item_info_detail">
+                      <em>{{data.date}}</em>
+                      <em>{{data.info}}</em>
+                  </span>
+              </span>
+              <span class="cost" data-rate="1">
+                  <span class="origin_price" v-if="data.sale > 0">{{data.price}}원</span>
+                  <strong class="price" v-if="data.sale > 0">{{data.price-(data.price/data.sale)}}<em>원</em></strong>
+                  <strong class="price" v-else>{{data.price}}<em>원</em></strong>
+                  <span class="sale" v-if="data.sale > 0">({{data.sale}}% 할인)</span>
+              </span>
+          </li>
+        </ul>
+    </div>
+    <div class="normal_row_wrap">
+        <div class="normal_row_wrap_title">
+            <strong>주문자 정보</strong>
+        </div>
+        <ul class="normal_row_wrap_content user_info">
+            <li>
+                <strong>회원구분</strong>
+                <span>관리자</span>
+            </li>
+            <li>
+                <strong>이름</strong>
+                <span>시스템관리자1</span>
+            </li>
+            <li>
+                <strong>휴대전화</strong>
+                <span>010-2133-1233</span>
+            </li>
+            <li>
+                <strong>이메일</strong>
+                <span>asdasd@naver.com</span>
+            </li>
+        </ul>
+    </div>
+    <div class="normal_row_wrap">
+        <div class="normal_row_wrap_title">
+            <strong>배송지 정보</strong>
+        </div>
+        <ul class="normal_row_wrap_content user_info type2 pd_10">
+            <li class="radio_row">
+                <strong>배송지 선택</strong>
+                <span class="radio_wrap">
+                        <input type="radio" name="shipInfo" id="ship0" checked="" onclick="changeShipInfo('홍길동', '010-1234-1234', '35426', '대전 서구 가마절길 7', '(산직동)123');">
+                        <label for="ship0">기본배송지</label>
+                        <input type="radio" name="shipInfo" id="ship1" onclick="changeShipInfo('김부산', '010-3333-2222', '27213', '충북 제천시 청풍면 부산리 127', '123');">
+                        <label for="ship1">부산 집</label>
+                        <input type="radio" name="shipInfo" id="ship2" onclick="changeShipInfo('이양반', '010-1111-0000', '06035', '서울 강남구 신사동 537-5', '123');">
+                        <label for="ship2">1번 배송지</label>
+                        <input type="radio" name="shipInfo" id="ship3" onclick="changeShipInfo('홍길동', '010-1234-1234', '35426', '대전 서구 가마절길 7', '(산직동)123');">
+                        <label for="ship3">홍길동</label>
+                    <a href="/oms/ship/index.do" target="_blank" class="btn_move">배송지 변경<i class="xi-angle-right-min"></i></a>
+                </span>
+            </li>
+            <li>
+                <strong>수령자 명</strong>
+                <input type="text" name="dlvryRcpnt" id="dlvryRcpnt" placeholder="수령자 명을 입력해주세요." value="홍길동" autocomplete="off">
+            </li>
+            <li>
+                <strong>연락처</strong>
+                <span class="input_line phone">
+                    <!-- 휴대폰 : phone 클래스 추가 -->
+                    <input type="hidden" name="dlvryTelno" id="dlvryTelno">
+                    <select name="dlvryTelno1" id="dlvryTelno1">
+                        <option value="">선택</option>
+                        <option value="010" selected="selected">010</option>
+                        <option value="011">011</option>
+                    </select>
+                    <em>-</em>
+                    <input type="text" name="dlvryTelno2" id="dlvryTelno2" maxlength="4" autocomplete="off" value="1234">
+                    <em>-</em>
+                    <input type="text" name="dlvryTelno3" id="dlvryTelno3" maxlength="4" autocomplete="off" value="1234">
+                </span>
+            </li>
+            <li>
+                <strong>배송지</strong>
+                <span class="form dp-bl ">
+                    <!-- .dp-bl -->
+                    <input type="text" name="zip" id="zip" readonly="readonly" placeholder="우편번호" autocomplete="off" value="35426">
+                    <button class="popup_open_btn" id="postal_search" onclick="return daumPostcode('addr', 'daddr');">주소 검색</button>
+                    <input type="text" name="addr" id="addr" readonly="readonly" class="long" placeholder="주소예시" autocomplete="off" value="대전 서구 가마절길 7">
+                    <!-- .full -> .long -->
+                    <input type="text" name="daddr" id="daddr" class="long" placeholder="상세주소 입력" autocomplete="off" value="(산직동)123">
+
+                </span>
+            </li>
+            <li>
+                <strong>택배배송 요청사항</strong>
+                <ul class="user_request">
+                    <li>
+                        <select name="deliverMsg" id="deliverMsg" onchange="changeDeliverMsg(this.value);">
+                            <option value="">직접입력</option>
+                            <option value="현관문 앞에 놓아주세요.">현관문 앞에 놓아주세요.</option>
+                            <option value="경비실에 맡겨주세요.">경비실에 맡겨주세요.</option>
+                            <option value="택배함에 넣어주세요.">택배함에 넣어주세요.</option>
+                            <option value="배송전 연락바랍니다.">배송전 연락바랍니다.</option>
+                            <option value="초인종 누르지 마시고 노크해주세요.">초인종 누르지 마시고 노크해주세요.</option>
+                            <option value="수령자 본인에게 직접 배송해주세요.">수령자 본인에게 직접 배송해주세요.</option>
+                        </select>
+                    </li>
+                    <li>
+                        <input type="text" name="dlvryMemo" id="dlvryMemo" placeholder="50자 이내로 입력해주세요." autocomplete="off">
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="normal_row_wrap">
+        <div class="normal_row_wrap_title">
+            <strong>추천인 정보</strong>
+        </div>
+        <ul class="normal_row_wrap_content user_info type2">
+            <li>
+                <strong>추천인 </strong>
+                <ul class="user_request">
+                    <li>
+                        <input type="checkbox" name="check1" id="check1">
+                        <label for="check1">추천인 없음</label>
+                    </li>
+                    <li>
+                        <select name="" id="">
+                            <option value="">직접입력</option>
+                            <option value="000001">kt service 북부</option>
+                            <option value="A00000">kt service 남부</option>
+                        </select>
+                    </li>
+                    <li>
+                        <ul class="user_request_input_list">
+                            <li>
+                                <span>추천인 이름(필수)</span>
+                                <input type="text" name="" id="" autocomplete="off">
+                            </li>
+                            <li>
+                                <span>추천인 연락처(필수)</span>
+                                <input type="text" name="" id="" autocomplete="off">
+                            </li>
+                            <li>
+                                <span>추천인 사번</span>
+                                <input type="text" name="" id="" autocomplete="off">
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="normal_row_wrap">
+        <div class="normal_row_wrap_title">
+            <strong>결제 정보</strong>
+        </div>
+        <ul class="normal_row_wrap_content user_info type2">
+            <li class="radio_row">
+                <strong>결제수단</strong>
+                <span class="radio_wrap">
+                    <input type="radio" name="paymentMethodCd" id="paymentMethodCd1" value="USR005001">
+                    <label for="paymentMethodCd1">신용카드</label>
+                    <input type="radio" name="paymentMethodCd" id="paymentMethodCd2" value="USR005002">
+                    <label for="paymentMethodCd2">실시간 계좌이체</label>
+                </span>
+            </li>
+            <li>
+                <strong>구매금액</strong>
+                <ul class="payment_list">
+                    <li>
+                        <span>총 구매금액</span>
+                        <span>4,444<em>원</em></span>
+                    </li>
+                    <li>
+                        <span>배송비</span>
+                        <span>
+                            5,000<em>원</em>
+                        </span>
+                    </li>
+                    <li class="payment_list_sum">
+                        <strong>최종결제금액</strong>
+                        <strong>9,444<em>원</em></strong>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <p class="product_detail_header_alert">
+        <input type="hidden" name="orderPrice" value="4444">  <!-- 주문금액 -->
+        <input type="hidden" name="dlvryPrice" value="5000">  <!-- 배송금액 -->
+        <input type="hidden" name="discountPrice" value="0">  <!-- 할인금액 -->
+        <input type="hidden" name="paymentPrice" value="9444">  <!-- 결제금액 -->
+        <strong>주문 내용을 모두 확인 하였으며, 결제에 동의합니다.</strong>
+    </p>
+    <button class="btn_max" type="button" onclick="return fn_egov_add('/oms/order/index.do');">9,444원 결제하기</button>
+</div>
+<div class="purchase_wrap deliver_wrap">
+  <div class="btn_request">
+      <span class="request_alert">주문 내용을 모두 확인 하였으며, 결제에 동의합니다.</span>
+      <button class="buy" type="button" onclick="return fn_egov_add('/oms/order/index.do');">결제하기</button>
+  </div>
+  <div class="deliver product">
+      <div class="deliver_title">
+          <span><i class="xi-basket"></i>주문상품 : 2개</span>
+      </div>
+      <ul class="basket_list">
+
+          <li>
+              <span>상품명입니다</span>
+              <em>1</em>
+          </li>
+
+          <li>
+              <span>상품명입니다</span>
+              <em>1</em>
+          </li>
+
+      </ul>
+  </div>
+  <ul class="product_info">
+      <li>
+          <span class="title">배송비</span>
+          <span class="info">
+
+              5,000
+          </span>
+      </li>
+  </ul>
+  <div class="product_cost">
+      <div class="cost">
+          <span class="title">최종결제금액</span>
+          <strong class="info">9,444<em>원</em></strong>
+      </div>
+  </div>
+</div>
 </template>
 
 <script>
-export default {
+import bookData from '@/assets/data/bookData'
 
+export default {
+  data () {
+    return {
+      bookData
+    }
+  }
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.normal_row_container {width: 103rem; padding-left: 2rem;
+  .section_title {width: 100%; text-align: left; font-size: 3.6rem; margin-top: 0rem!important;}
+  .section_title {font-size: 3.8rem; letter-spacing: -.057rem; line-height: 4.5rem; margin: 10rem 0 3rem;}
+  .normal_row_wrap {
+        &:not(:last-child) {margin-bottom: 4rem;}
+        .normal_row_wrap_title {display: flex; justify-content: space-between; align-items: center;
+            strong {font-size: 2.4rem;
+                span {font-size: 1.8rem;}
+            }
+            .general_chk {display: flex; align-items: center;
+                input {border: 1px solid #ccc; width: 2rem; height: 2rem;}
+                label {font-size: 2.4rem; font-weight: 700; margin-left: 1rem;}
+            }
+            .general_del {color: #686868; font-size: 1.4rem;
+                button {background: none; border: none; cursor: pointer; margin-left: 2rem; position: relative;
+                    &:not(:last-child) {
+                        &::after {display: block; content: ''; font-size: 10px; position: absolute; width: 1px; height: 1.2rem; background: #ccc; top: 50%; 
+                            right: -1.25rem; transform: translateY(-50% );}
+                    }
+                    &:hover {font-weight: 700;}
+                }
+            }
+        }
+        .normal_row_wrap_content {margin-top: 1.2rem; border-top: 2px solid #444;
+            &.pd_10 {
+              &>li {padding: 1rem 0 !important;}
+            }
+            &>li {padding: 2rem 0; border-bottom: 1px solid #E8E8E8; display: flex; align-content: center;
+                &>* {display: flex; align-items: center; justify-content: left; flex-wrap: wrap;}
+                .name {width: 18rem;
+                    strong {display: block; font-size: 1.5rem; width: 100%; text-align: left;}
+                    em {font-size: 1.3rem;}
+                    .item_info {width: calc(100% - 45rem);}
+                }
+                .content {width: calc(100% - 30rem); color: #444; font-size: 1.5rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right: 2rem;}
+                .rate {width: 12rem;
+                    li {
+                        &.on {
+                            .xi-star-o {color: #ED1824;
+                                &::before {content: '\ea0f';}
+                            }
+                        }
+                    }
+                }
+            }
+            &.user_info {border-bottom: 1px solid #ddd;
+                &>li {padding: 1rem 0; border-bottom: none; font-size: 1.5rem; color: #333; align-items: baseline;
+                    &:first-child {padding-top: 2rem;}
+                    &:last-child {padding-bottom: 2rem;}
+                    &>strong {width: 17rem; padding-left: 1rem;}
+                    &>span {font-weight: 300;}
+                }
+                &.type2 {
+                    &>li {padding: 2rem 0;
+                        &>span {flex-wrap: wrap;
+                            em {width: 100%; text-align: left; margin-top: .8rem;}
+                            &.phone {
+                                em {width: auto; padding: 0 .5rem;}
+                            }
+                        }
+                        .user_request {width: 100%; max-width: 56.4rem;
+                            li {width: 100%; text-align: left; display: flex; align-items: center;
+                                &:not(:last-child) {margin-bottom: .8rem;}
+                                select, input[type=text] {width: 100%;}
+                                input {padding-left: 1.5rem;}
+                                input[type=checkbox] {border: 1px solid #ccc; width: 2rem; height: 2rem; border-radius: .2rem; margin-right: .4rem;}
+                                label {font-size: 1.5rem; color: #333;}
+                                .user_request_input_list {max-width: 32.5rem;
+                                    li {display: flex;
+                                        span {width: 14.5rem; color: #686868; font-size: 1.3rem;}
+                                        input {width: calc(100% - 14.5rem);}
+                                    }
+                                }
+                            }
+                        }
+                        .payment_list {max-width: 32.5rem;
+                            li {display: flex; width: 100%; justify-content: space-between; margin-bottom: .8rem;
+                                span {color: #686868; font-size: 1.3rem;}
+                                input {width: calc(100% - 14.5rem);}
+                                &.payment_list_sum {padding-top: 1.5rem; margin-bottom: 0; border-top: 1px solid #E8E8E8;}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .pagination {margin-top: 3rem;}
+        .radio_row {background: #F5F6F7;}
+        input {accent-color: #ED1B24;}
+        .radio_wrap {display: flex; align-items: center;
+          label {margin: 0 2rem 0 .5rem;}
+        }
+    }
+    .form {width: calc(100% - 17rem); text-align: left;
+        input[type=radio] {width: 2rem; height: 2rem;}
+        label {margin: 0 2rem 0 .4rem; font-size: 1.5rem; font-weight: 300;}
+        select {width: 20rem;}
+        input[type=text] {width: 20rem;
+            &.long {display: block; width: 43rem; margin-top: 2rem;}
+            &.short {width: 10rem;}
+        }
+        button {color: #fff; font-size: 1.5rem; margin-right: 50rem; background: #686868; padding: .9rem 1.2rem; margin-left: -.3rem; white-space: nowrap;}
+        em {font-size: 1.5rem;
+            span {color: #686868;}
+        }
+    }
+    .product_detail_header_alert {background: #EEEEEE; display: flex; width: 100%; justify-content: center; padding: 3rem 0; flex-wrap: wrap; margin-top: 4rem;
+        strong {width: 100%; font-size: 2rem; text-align: center;}
+        span {display: inline-block; margin-top: 1rem;}
+    }
+    .btn_max {background: #ED1824; color: #fff; width: 100%; padding: 1.8rem 0; font-size: 2rem; font-weight: 700; margin: 2rem 0 10rem;}
+    
+}
+.purchase_wrap {top: 30rem; width: 33rem; border: 1px solid #ccc; padding: 3.6rem 2.4rem; height: fit-content; position: fixed; margin-left: 105rem;
+      .product_name {
+          .product_name_sub {font-size: 1.4rem; margin-top: 0;}
+          .product_name_main {font-size: 1.8rem; letter-spacing: -.027rem;}
+      }
+      .product_info {padding: 1.5rem 0; margin-top: 4rem;
+          li {display: flex; justify-content: space-between;
+              .title {width: auto;}
+          }
+      }
+      .product_cost {
+          .cost {display: flex; justify-content: space-between;
+              .title {width: auto;}
+              .info {font-size: 2.8rem;
+                  em {font-size: 1.8rem;}
+              }
+          }
+      }
+      .btn_request {position: absolute; width: 100%; left: 0; bottom: -18rem;
+          button {font-size: 1.8rem; padding: 2rem 0;}
+          .alert {font-size: 1.3rem; padding-right: 2rem;
+              em {font-size: 1.2rem;}
+              i {right: 1.5rem;}
+          }
+      }
+      &.deliver_wrap {padding: 0;
+          .deliver {background: #F5F6F7; padding: 2.4rem; color: #686868; font-size: 1.3rem;
+              .deliver_title {display: flex; justify-content: space-between; align-items: center;
+                  &>span {font-size: 1.5rem; color: #333; font-weight: 800; display: flex; align-items: center;
+                      i {font-size: 1.8rem; margin-right: .5rem;}
+                  }
+                  button {font-size: 1.4rem; display: flex; align-items: center;}
+              }
+              .deliver_user {margin: 1rem 0;}
+              .deliver_add {
+                  span {display: block;}
+              }
+              &.product {background: #fff;
+                  .deliver_title {margin-bottom: .8rem;}
+                  .basket_list {font-size: 1.3rem; color: #686868;
+                      li {display: flex; justify-content: space-between; margin: .4rem 0; font-weight: 200;}
+                  }
+              }
+          }
+          .product_info {margin: 0; padding: 2.4rem 0; margin: 0 2.4rem;}
+          .product_cost {border-top: none; padding: 2.4rem;
+              .cost {
+                  .title {color: #ED1824;}
+              }
+          }
+          .btn_request {bottom: -11rem; justify-content: center;
+              span {color: #686868; font-size: 1.3rem; margin-bottom: 1.25rem;}
+              .buy {width: 100%; font-size: 2rem;}
+          }
+      }
+      .product_info, .product_cost {padding: 3rem 0; border-top: 1px solid #E8E8E8; margin-bottom: -1px;
+            &:not(:last-child) {border-bottom: 1px solid #E8E8E8;}
+            .title {color: #333; font-size: 1.5rem; width: 15rem; display: inline-block;}
+            .info {color: #686868; font-size: 1.5rem; font-weight: 200;}
+        }
+        .product_info {
+            li {
+                &:not(:last-child) {margin-bottom: 1rem;}
+            }
+        }
+        .product_cost {
+            .figures {display: flex; align-items: center; margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid #E8E8E8;}
+            .cost {display: flex; align-items: center;
+                .info {color: #ED1824; font-size: 3.2rem; font-weight: 800;
+                    em {font-size: 2rem; font-weight: 600; margin-left: .5rem;}
+                }
+            }
+            .btn_request {margin-top: 2.5rem;}
+        }
+        .btn_request {display: flex; justify-content: space-between; flex-wrap: wrap;
+        button {padding: 2.4rem 0; font-size: 2rem; font-weight: 500;
+            &.buy {background: #ED1824; color: #fff; width: calc(50% - .4rem); }
+            &.basket {border: 1px solid #444; color: #333; width: calc(50% - .4rem); }
+            &.alert {background: #444; color: #fff; font-size: 1.8rem; width: 100%; margin-top: .8rem; position: relative; padding: 1.8rem 0; 
+                opacity: 0; visibility: hidden; transition: .3s all;
+                &.active {opacity: 1; visibility: visible;}
+                em {font-size: 1.6rem; margin-left: 1.2rem; font-weight: 200; text-decoration: underline;}
+                i {position: absolute; top: 50%; transform: translateY(-50%); right: 2rem;}
+            }
+        }
+    }
+  }
+  .normal_row_wrap_content {
+    .cost {justify-content: right !important; width: 30rem; flex-wrap: nowrap !important; align-items: flex-end !important; padding-bottom: 2rem;
+      .origin_price {text-decoration: line-through; margin-block: .25rem;}
+      .price {font-size: 2.5rem; padding-left: 1rem;}
+      .sale {color: #ED1824; margin-block: .25rem;}
+    }
+  }
 </style>
