@@ -68,7 +68,8 @@ export default {
               .item_info_class {color: #686868; font-size: 1.4rem;}
               .item_info_title {color: #222; font-size: 1.8rem;}
               .item_info_detail {
-                  em {display: block; color: #686868; font-size: 1.3rem;
+                  em {color: #686868; font-size: 1.3rem; word-break: keep-all;
+    display: -webkit-box; white-space: normal; overflow: hidden; text-overflow: ellipsis; height: 3rem; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
                       &:not(:last-child) {margin-bottom: .5rem; font-weight: 200;}
                   }
               }

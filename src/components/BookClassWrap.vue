@@ -9,6 +9,7 @@
           <span class="title"><em>제목</em><span>{{book.title}}</span></span>
           <span class="date"><em>발행일</em><span>{{book.date}}</span></span>
           <span class="salesValue"><em>이달의 순위</em><span>{{this.bookRank}}위</span></span>
+          <span class="bookInfo">{{book.info}}</span>
         </span>
       </li>
     </ul>
@@ -72,12 +73,14 @@ export default {
           }
           .thisInfo {position: relative; color: #fff; padding: 3rem; transition: 5s;
             &>span {white-space: nowrap; display: block; margin: 0 0 2rem 2rem; display: flex; font-size: 2rem; align-items: center; height: 3rem;
-              @for $i from 1 to 4 {
+              @for $i from 1 to 5 {
                 &:nth-child(#{$i}) 
-                   {animation-name: bookInfoText+$i; z-index: $i*1; animation-duration: $i*.9s; animation-timing-function: ease; opacity: 0; animation-fill-mode: forwards;}
+                   {animation-name: bookInfoText+$i; z-index: $i*1; animation-duration: $i*.6s; animation-timing-function: ease; opacity: 0; animation-fill-mode: forwards;}
               }
               em {width: 10rem; display: block; font-size: 1.6rem;}
             }
+            .bookInfo {flex-wrap: wrap; white-space: pre-line; max-width: 60rem; word-break: keep-all; display: -webkit-box;
+    white-space: normal; overflow: hidden; text-overflow: ellipsis; height: 15rem; padding-top: 5rem; -webkit-line-clamp: 4; -webkit-box-orient: vertical;}
           }
         }
         &:hover {
@@ -166,7 +169,7 @@ export default {
       backdrop-filter: blur(10px); background: rgba(0,0,0,.8);
     }
   }
-  @for $i from 1 to 4 {
+  @for $i from 1 to 5 {
     @keyframes bookInfoText#{$i} {
       0% {
         opacity: 0; margin-top: -2rem;

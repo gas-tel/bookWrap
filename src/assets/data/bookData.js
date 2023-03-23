@@ -157,7 +157,7 @@ export default [
     {
         title : "GPT 제너레이션",
         like : false,
-        cart : false,
+        cart : true,
         content : "education",
         date : "2023-02-10",
         id : 10,
@@ -520,7 +520,7 @@ export default [
     {
         title : "우리는 모두 죽는다는 것을 기억하라",
         like : false,
-        cart : false,
+        cart : true,
         content : "essay",
         date : "2023-01-18",
         id : 34,

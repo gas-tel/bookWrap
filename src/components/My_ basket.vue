@@ -34,72 +34,48 @@
         <ul class="normal_row_wrap_content user_info">
             <li>
                 <strong>회원구분</strong>
-                <span>관리자</span>
+                <span>{{user.sort}}</span>
             </li>
             <li>
                 <strong>이름</strong>
-                <span>시스템관리자1</span>
+                <span>{{user.name}}</span>
             </li>
             <li>
                 <strong>휴대전화</strong>
-                <span>010-2133-1233</span>
+                <span>{{user.phone}}</span>
             </li>
             <li>
                 <strong>이메일</strong>
-                <span>asdasd@naver.com</span>
+                <span>{{user.mail}}</span>
             </li>
         </ul>
     </div>
     <div class="normal_row_wrap">
         <div class="normal_row_wrap_title">
             <strong>배송지 정보</strong>
-        </div>
+        </div>                                                                                                                                                                          
         <ul class="normal_row_wrap_content user_info type2 pd_10">
             <li class="radio_row">
                 <strong>배송지 선택</strong>
                 <span class="radio_wrap">
-                        <input type="radio" name="shipInfo" id="ship0" checked="" onclick="changeShipInfo('홍길동', '010-1234-1234', '35426', '대전 서구 가마절길 7', '(산직동)123');">
-                        <label for="ship0">기본배송지</label>
-                        <input type="radio" name="shipInfo" id="ship1" onclick="changeShipInfo('김부산', '010-3333-2222', '27213', '충북 제천시 청풍면 부산리 127', '123');">
-                        <label for="ship1">부산 집</label>
-                        <input type="radio" name="shipInfo" id="ship2" onclick="changeShipInfo('이양반', '010-1111-0000', '06035', '서울 강남구 신사동 537-5', '123');">
-                        <label for="ship2">1번 배송지</label>
-                        <input type="radio" name="shipInfo" id="ship3" onclick="changeShipInfo('홍길동', '010-1234-1234', '35426', '대전 서구 가마절길 7', '(산직동)123');">
-                        <label for="ship3">홍길동</label>
-                    <a href="/oms/ship/index.do" target="_blank" class="btn_move">배송지 변경<i class="xi-angle-right-min"></i></a>
+                    <span v-for="(add, index) in user.address" :key="add">
+                        <input type="radio" name="shipInfo" :id="index" :checked="add.normal" @click="deliverAdd = index" onclick="">
+                        <label :for="index" @click="deliverAdd = index">{{add.name}}{{index}}</label>
+                    </span>
                 </span>
             </li>
             <li>
                 <strong>수령자 명</strong>
-                <input type="text" name="dlvryRcpnt" id="dlvryRcpnt" placeholder="수령자 명을 입력해주세요." value="홍길동" autocomplete="off">
+                <span v-if="user.address[deliverAdd]">{{user.address[deliverAdd].name}}</span>
             </li>
             <li>
                 <strong>연락처</strong>
-                <span class="input_line phone">
-                    <!-- 휴대폰 : phone 클래스 추가 -->
-                    <input type="hidden" name="dlvryTelno" id="dlvryTelno">
-                    <select name="dlvryTelno1" id="dlvryTelno1">
-                        <option value="">선택</option>
-                        <option value="010" selected="selected">010</option>
-                        <option value="011">011</option>
-                    </select>
-                    <em>-</em>
-                    <input type="text" name="dlvryTelno2" id="dlvryTelno2" maxlength="4" autocomplete="off" value="1234">
-                    <em>-</em>
-                    <input type="text" name="dlvryTelno3" id="dlvryTelno3" maxlength="4" autocomplete="off" value="1234">
-                </span>
+                <span v-if="user.address[deliverAdd]">{{user.address[deliverAdd].addPhone}}</span>
             </li>
             <li>
                 <strong>배송지</strong>
-                <span class="form dp-bl ">
-                    <!-- .dp-bl -->
-                    <input type="text" name="zip" id="zip" readonly="readonly" placeholder="우편번호" autocomplete="off" value="35426">
-                    <button class="popup_open_btn" id="postal_search" onclick="return daumPostcode('addr', 'daddr');">주소 검색</button>
-                    <input type="text" name="addr" id="addr" readonly="readonly" class="long" placeholder="주소예시" autocomplete="off" value="대전 서구 가마절길 7">
-                    <!-- .full -> .long -->
-                    <input type="text" name="daddr" id="daddr" class="long" placeholder="상세주소 입력" autocomplete="off" value="(산직동)123">
-
-                </span>
+                <span v-if="user.address[deliverAdd]">{{user.address[deliverAdd].postcode}}</span>
+                <span v-if="user.address[deliverAdd]">{{user.address[deliverAdd].address}}</span>
             </li>
             <li>
                 <strong>택배배송 요청사항</strong>
@@ -117,45 +93,6 @@
                     </li>
                     <li>
                         <input type="text" name="dlvryMemo" id="dlvryMemo" placeholder="50자 이내로 입력해주세요." autocomplete="off">
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-    <div class="normal_row_wrap">
-        <div class="normal_row_wrap_title">
-            <strong>추천인 정보</strong>
-        </div>
-        <ul class="normal_row_wrap_content user_info type2">
-            <li>
-                <strong>추천인 </strong>
-                <ul class="user_request">
-                    <li>
-                        <input type="checkbox" name="check1" id="check1">
-                        <label for="check1">추천인 없음</label>
-                    </li>
-                    <li>
-                        <select name="" id="">
-                            <option value="">직접입력</option>
-                            <option value="000001">kt service 북부</option>
-                            <option value="A00000">kt service 남부</option>
-                        </select>
-                    </li>
-                    <li>
-                        <ul class="user_request_input_list">
-                            <li>
-                                <span>추천인 이름(필수)</span>
-                                <input type="text" name="" id="" autocomplete="off">
-                            </li>
-                            <li>
-                                <span>추천인 연락처(필수)</span>
-                                <input type="text" name="" id="" autocomplete="off">
-                            </li>
-                            <li>
-                                <span>추천인 사번</span>
-                                <input type="text" name="" id="" autocomplete="off">
-                            </li>
-                        </ul>
                     </li>
                 </ul>
             </li>
@@ -248,11 +185,14 @@
 
 <script>
 import bookData from '@/assets/data/bookData'
+import user from '@/assets/data/guest'
 
 export default {
   data () {
     return {
-      bookData
+      bookData,
+      user : user.guest1,
+      deliverAdd : 0
     }
   }
 }
