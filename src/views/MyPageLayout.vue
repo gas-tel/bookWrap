@@ -44,8 +44,8 @@
                 </div>
                 <AddressInfo v-if="goList === 'ADDRESS INFO'"/>
                 <WishList v-if="goList === 'WISH LIST'"/>
-                <BasketList v-if="goList === 'BASKET'"/>
-                <OrderList v-if="goList === 'ORDER LIST'"/>
+                <BasketList v-if="goList === 'BASKET'" :orderList="orderList"/>
+                <OrderList v-if="goList === 'ORDER LIST'" :orderList="orderList"/>
             </div>
         </div>
     </div>
@@ -58,6 +58,7 @@ import OrderList from '@/components/My_OrderList.vue'
 import userData from './../assets/data/guest.js'
 import WishList from '@/components/My_wishList.vue'
 import BasketList from '@/components/My_ basket.vue'
+import bookData from '@/assets/data/bookData.js'
 
 export default {
     props : ['type','mypagetype'],
@@ -70,9 +71,11 @@ export default {
     data() {
         return {
             userData,
+            bookData,
             goList: 'ADDRESS INFO',
             mypageType : this.mypagetype,
-            page : this.$route.query.type
+            page : this.$route.query.type,
+            orderList : [],
         }
     },
     computed : {
@@ -83,6 +86,12 @@ export default {
         },
         goBasket() {
             if(this.page==='BASKET') this.goList = this.page
+        },
+        basketSetting() {
+            this.orderList = bookData.filter((v)=>v.cart)
+        },
+        orderListSubmit(list) {
+            this.orderList = list
         }
     },
     watch : {

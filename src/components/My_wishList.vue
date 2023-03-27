@@ -63,7 +63,10 @@ export default {
         .content {width: calc(100% - 30rem); color: #444; font-size: 1.5rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right: 2rem;}
         .row_img_box {border: 1px solid #E8E8E8; max-width: 12rem; height: 12rem; margin: 0 1.5rem;}
           img {max-height: 100%;}
-          .item_info {width: calc(100% - 32rem);
+          .item_check {width: 3rem; 
+            input {margin: 0 auto;}
+          }
+          .item_info {width: calc(100% - 29rem);
               * {width: 100%; text-align: left;}
               .item_info_class {color: #686868; font-size: 1.4rem;}
               .item_info_title {color: #222; font-size: 1.8rem;}

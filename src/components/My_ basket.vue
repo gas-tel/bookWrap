@@ -7,6 +7,10 @@
         </div>
         <ul class="normal_row_wrap_content">
           <li v-for="data in bookData.filter((v)=>v.cart===true)" :key="data">
+                <span class="item_check">
+                    <input type="checkbox" name="" id="" checked @click="chkAdd()" 
+                     :class="[data.title]"/>
+                </span>
               <span class="row_img_box">
                   <img :src="data.imgSrc" alt="">
               </span>
@@ -115,19 +119,13 @@
             <li>
                 <strong>구매금액</strong>
                 <ul class="payment_list">
-                    <li>
-                        <span>총 구매금액</span>
-                        <span>4,444<em>원</em></span>
-                    </li>
-                    <li>
-                        <span>배송비</span>
-                        <span>
-                            5,000<em>원</em>
-                        </span>
+                    <li v-for="price in bookData.filter((v)=>v.cart)" :key="price">
+                        <span>{{price.title}}</span>
+                        <span >{{price.price}}<em>원</em></span>
                     </li>
                     <li class="payment_list_sum">
-                        <strong>최종결제금액</strong>
-                        <strong>9,444<em>원</em></strong>
+                        <strong>최종 결제금액</strong>
+                        <strong>{{priceSum}}<em>원</em></strong>
                     </li>
                 </ul>
             </li>
@@ -140,44 +138,36 @@
         <input type="hidden" name="paymentPrice" value="9444">  <!-- 결제금액 -->
         <strong>주문 내용을 모두 확인 하였으며, 결제에 동의합니다.</strong>
     </p>
-    <button class="btn_max" type="button" onclick="return fn_egov_add('/oms/order/index.do');">9,444원 결제하기</button>
+    <button class="btn_max" type="button" @click="payment()">{{priceSum}}원 결제하기</button>
 </div>
 <div class="purchase_wrap deliver_wrap">
   <div class="btn_request">
       <span class="request_alert">주문 내용을 모두 확인 하였으며, 결제에 동의합니다.</span>
-      <button class="buy" type="button" onclick="return fn_egov_add('/oms/order/index.do');">결제하기</button>
+      <button class="buy" type="button" @click="payment()">결제하기</button>
   </div>
   <div class="deliver product">
       <div class="deliver_title">
           <span><i class="xi-basket"></i>주문상품 : 2개</span>
       </div>
       <ul class="basket_list">
-
-          <li>
-              <span>상품명입니다</span>
+          <li v-for="price in bookData.filter((v)=>v.cart)" :key="price">
+              <span>{{price.title}}</span>
               <em>1</em>
           </li>
-
-          <li>
-              <span>상품명입니다</span>
-              <em>1</em>
-          </li>
-
       </ul>
   </div>
   <ul class="product_info">
       <li>
           <span class="title">배송비</span>
-          <span class="info">
-
-              5,000
+          <span class="info" :class="{active : this.priceSum >= 30000}">
+              5000
           </span>
       </li>
   </ul>
   <div class="product_cost">
       <div class="cost">
           <span class="title">최종결제금액</span>
-          <strong class="info">9,444<em>원</em></strong>
+          <strong class="info">{{priceSum}}<em>원</em></strong>
       </div>
   </div>
 </div>
@@ -192,8 +182,34 @@ export default {
     return {
       bookData,
       user : user.guest1,
-      deliverAdd : 0
+      deliverAdd : 0,
+      priceSum : 0,
+      orderList : [],
+      add : []
     }
+  },
+  methods : {
+    chkAdd() {
+        const chkList = document.querySelectorAll('.item_check input')
+        chkList.forEach(function(chkBox){
+            console.log(chkBox,chkBox.checked);
+        })
+    },
+    priceCalc() {
+        bookData.map((v)=>{
+            if(v.cart) this.priceSum += v.price
+        })
+    },
+    payment() {
+        this.orderList = []
+        const item = bookData.filter((v)=>v.cart)
+        this.orderList.push(item)
+        alert(`${this.priceSum}원 결제 완료`)
+        this.$parent.orderListSubmit(item)
+    }
+  },
+  mounted() {
+    this.priceCalc()
   }
 }
 </script>
@@ -370,7 +386,9 @@ export default {
       .product_info, .product_cost {padding: 3rem 0; border-top: 1px solid #E8E8E8; margin-bottom: -1px;
             &:not(:last-child) {border-bottom: 1px solid #E8E8E8;}
             .title {color: #333; font-size: 1.5rem; width: 15rem; display: inline-block;}
-            .info {color: #686868; font-size: 1.5rem; font-weight: 200;}
+            .info {color: #686868; font-size: 1.5rem; font-weight: 200;
+                &.active {text-decoration: line-through ;}
+            }
         }
         .product_info {
             li {
