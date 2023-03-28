@@ -82,7 +82,6 @@ export default {
         kakaoPopupBtn(index) {
             this.kakaoPopup = !this.kakaoPopup
             this.addIndex = index
-            console.log(this);
         },
         propsAddressIndex(index) {
             this.userData.map((v)=> {if(v.normal === true) v.normal = false})

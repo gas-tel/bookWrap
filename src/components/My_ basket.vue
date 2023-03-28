@@ -218,7 +218,7 @@ export default {
         this.orderList = []
         const item = bookData.filter((v)=>v.order)
         this.orderList.push(item)
-        // alert(`${this.priceSum}원 결제 완료`)
+        alert(`${this.priceSum}원 결제 완료`)
         this.$parent.orderListSubmit(item)
         this.requestMsg === '직접입력' ? this.emitMsg = this.userMsg : this.emitMsg = this.requestMsg
         this.$parent.emitMsg = this.emitMsg;

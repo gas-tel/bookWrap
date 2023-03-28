@@ -7,7 +7,7 @@
     <section class="section">
         <div class="bookListWrap">
             <div class="info" v-if="currentRoute.query.text">
-                <div class="empty" v-if="bookData.filter((v)=>v.title.match(currentRoute.query.text))==0" :key="book">
+                <div class="empty" v-if="bookData.filter((v)=>v.title.match(currentRoute.query.text))==0">
                     " <strong>{{currentRoute.query.text}}</strong> " 에 대한 검색결과가 없습니다.
                 </div>
             </div>
