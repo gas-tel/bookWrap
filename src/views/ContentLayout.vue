@@ -6,7 +6,51 @@
     </section>
     <section class="section">
         <div class="bookListWrap">
-            <div class="book_box" v-for="book in bookData.filter((v) => v.content === $route.query.type)" :key="book">
+            <div class="info" v-if="currentRoute.query.text">
+                <div class="empty" v-if="bookData.filter((v)=>v.title.match(currentRoute.query.text))==0" :key="book">
+                    " <strong>{{currentRoute.query.text}}</strong> " 에 대한 검색결과가 없습니다.
+                </div>
+            </div>
+            <div class="serch_wrap" v-if="currentRoute.query.text">
+                <div class="book_box" v-for="book in bookData.filter((v)=>v.title.match(currentRoute.query.text))" :key="book">
+                    <div class="book">
+                        <div class="book_front">
+                            <span>
+                                <img :src="book.imgSrc" alt="" class="device2">
+                            </span>
+                        </div>
+                        <div class="page">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="book_back">
+                            <span class="cover"></span>
+                        </div>
+                    </div>
+                    <div class="book_info">
+                        <ul class="info">
+                            <li>
+                                <span>제목</span>
+                                <strong>{{book.title}}</strong>
+                            </li>
+                            <li>
+                                <span>발행일</span>
+                                <strong>{{book.date}}</strong>
+                            </li>
+                        </ul>
+                        <div class="shopping">
+                            <button class="xi-heart" v-if="book.like" @click="likeBtn(book)"></button>
+                            <button class="xi-heart-o" v-else @click="likeBtn(book)"></button>
+                            <button class="xi-cart" v-if="book.cart" @click="cartBtn(book)"></button>
+                            <button class="xi-cart-o" v-else @click="cartBtn(book)"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div v-else class="book_box" v-for="book in bookData.filter((v) => v.content === $route.query.type)" :key="book">
                 <div class="book">
                     <div class="book_front">
                         <span>
@@ -47,6 +91,7 @@
     </section>
 </template>
 
+
 <script>
 import SearchBox from '@/components/SearchBox.vue'
 import bookData from "./../assets/data/bookData.js"
@@ -54,10 +99,12 @@ import bookData from "./../assets/data/bookData.js"
 export default {
     components : { SearchBox },
     name : 'contentPage',
-    props: [''],
+    props: ['text'],
     data () {
         return {
-            bookData
+            bookData,
+            searchText : "",
+            currentRoute : this.$router.currentRoute,
         }
     },
     methods : {
@@ -70,14 +117,16 @@ export default {
         },
         contentBtn(bookType) {
             this.$parent.topNavBtn(bookType)
-        }
+        },
+    },
+    created() {
     }
 }
 </script>
 
 <style lang="scss" scoped>
 .sch-wrap {margin-top: 7rem;}
-.bookListWrap {display: flex; width: 100%; flex-wrap: wrap;
+.bookListWrap,.serch_wrap {display: flex; width: 100%; flex-wrap: wrap;
     .book_box {width: 50%; margin-bottom: 3rem; display: flex; margin-top: 5rem;
         img {display: block; box-shadow: 0px 10px 12px #00000014; transition: .3s all;}
         &:hover {

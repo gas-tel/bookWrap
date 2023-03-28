@@ -29,6 +29,9 @@
         <div class="left">
             <span>주문번호 5DDBB4</span>
         </div>
+        <div class="right">
+            <span>배송 요청 사항 : {{this.emitMsg}}</span>
+        </div>
     </div>
     <ul class="check_order_list_content">
         <li v-for="order in this.orderList" :key="order">
@@ -66,7 +69,7 @@
 
 <script>
 export default {
-  props : ['orderList'],
+  props : ['orderList','emitMsg'],
   data() {
     return {
       orderPriceSum : 0,

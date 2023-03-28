@@ -55,7 +55,7 @@ export default {
     },
     contentActive(bookType) {
         this.$parent.$parent.topNavBtn(bookType)
-    }
+    },
   }
 }
 </script>
@@ -83,7 +83,7 @@ export default {
         .sch-box {border: 3px solid #992dfa; border-radius: 5rem; width: 40rem; display: flex; align-items: center; height: 4rem; box-sizing: border-box; 
         overflow: hidden; background: rgb(34, 146, 226); margin: 0 auto;
             select {border-radius: 5rem 0 0 5rem; border: none; font-size: 1.3rem; width: 10rem;}
-            input[type=text] {border: none; width: calc(100% - 17rem); height: 4rem;}
+            input[type=text] {border: none; width: calc(100% - 7rem); height: 4rem;}
             button {width: 7rem; background : #992dfa; height: 4rem; display: inline-block; color: #fff;}
         }
         .sch-categoty {display: flex; justify-content: center;  width: 100%; margin-top: 2rem; position: relative;

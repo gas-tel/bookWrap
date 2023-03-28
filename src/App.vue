@@ -1,5 +1,5 @@
 <template>
-  <header :class="{popup : popup === true}">
+  <header>
     <section class="section top-section">
         <ul class="top-nav">
             <li>
@@ -29,13 +29,19 @@
                   query: {type: 'education'}}
                 ">EDUCATION</router-link>
             </li>
+            <li>
+                <router-link @click="topNavBtn('search')" :class="{active : navActive === 'search'}" :to="{
+                  name: 'contentPage', 
+                  query: {type: 'search'}}
+                ">SEARCH</router-link>
+            </li>
         </ul>
         <ul class="users">
             <li>
                 <router-link to="./myPage" @click="topNavBtn('mypage')" :class="{active : navActive === 'mypage'}">MY PAGE</router-link>
             </li>
             <li class="cart" >
-                <router-link @updateData="updateData" :mypagetype="mypagetype"
+                <router-link :mypagetype="mypagetype"
                 :to="{
                   name: 'myPage', 
                   query: {type: 'BASKET'}}" @click="[topNavBtn('mypage')]" :class="{active : navActive === 'mypage'}">
@@ -70,7 +76,7 @@ export default {
       data,
       cart : 0,
       navActive : 'home',
-      mypagetype : 'BASKET'
+      mypagetype : 'BASKET',
     }
   },
   methods : {
@@ -84,6 +90,10 @@ export default {
     topNavBtn(focus) {
       this.navActive = focus
     },
+    itemSearch(text) {
+      this.$router.push({ path: '/contentPage'})
+      this.$router.push({ name: 'contentPage', query: {text: text} })
+    }
   },
   created() {
       this.cartSum();

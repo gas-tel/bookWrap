@@ -8,7 +8,7 @@
         <ul class="normal_row_wrap_content">
           <li v-for="data in bookData.filter((v)=>v.cart===true)" :key="data">
                 <span class="item_check">
-                    <input type="checkbox" name="" id="" checked @click="chkAdd()" 
+                    <input type="checkbox" name="" id="" checked @click="chkAdd(data,$event)" 
                      :class="[data.title]"/>
                 </span>
               <span class="row_img_box">
@@ -85,18 +85,18 @@
                 <strong>택배배송 요청사항</strong>
                 <ul class="user_request">
                     <li>
-                        <select name="deliverMsg" id="deliverMsg" onchange="changeDeliverMsg(this.value);">
-                            <option value="">직접입력</option>
-                            <option value="현관문 앞에 놓아주세요.">현관문 앞에 놓아주세요.</option>
-                            <option value="경비실에 맡겨주세요.">경비실에 맡겨주세요.</option>
-                            <option value="택배함에 넣어주세요.">택배함에 넣어주세요.</option>
-                            <option value="배송전 연락바랍니다.">배송전 연락바랍니다.</option>
-                            <option value="초인종 누르지 마시고 노크해주세요.">초인종 누르지 마시고 노크해주세요.</option>
-                            <option value="수령자 본인에게 직접 배송해주세요.">수령자 본인에게 직접 배송해주세요.</option>
+                        <select name="deliverMsg" v-model="requestMsg">
+                            <option :value="'직접입력'">직접입력</option>
+                            <option :value="'현관문 앞에 놓아주세요.'">현관문 앞에 놓아주세요.</option>
+                            <option :value="'경비실에 맡겨주세요.'">경비실에 맡겨주세요.</option>
+                            <option :value="'택배함에 넣어주세요.'">택배함에 넣어주세요.</option>
+                            <option :value="'배송전 연락바랍니다.'">배송전 연락바랍니다.</option>
+                            <option :value="'초인종 누르지 마시고 노크해주세요.'">초인종 누르지 마시고 노크해주세요.</option>
+                            <option :value="'수령자 본인에게 직접 배송해주세요.'">수령자 본인에게 직접 배송해주세요.</option>
                         </select>
                     </li>
-                    <li>
-                        <input type="text" name="dlvryMemo" id="dlvryMemo" placeholder="50자 이내로 입력해주세요." autocomplete="off">
+                    <li v-if="this.requestMsg === '직접입력'">
+                        <input v-model="userMsg" type="text" name="dlvryMemo" id="dlvryMemo" placeholder="50자 이내로 입력해주세요." autocomplete="off">
                     </li>
                 </ul>
             </li>
@@ -119,7 +119,7 @@
             <li>
                 <strong>구매금액</strong>
                 <ul class="payment_list">
-                    <li v-for="price in bookData.filter((v)=>v.cart)" :key="price">
+                    <li v-for="price in bookData.filter((v)=>v.order)" :key="price">
                         <span>{{price.title}}</span>
                         <span >{{price.price}}<em>원</em></span>
                     </li>
@@ -147,10 +147,10 @@
   </div>
   <div class="deliver product">
       <div class="deliver_title">
-          <span><i class="xi-basket"></i>주문상품 : 2개</span>
+          <span><i class="xi-basket"></i>주문상품 : {{itemLength}}</span>
       </div>
       <ul class="basket_list">
-          <li v-for="price in bookData.filter((v)=>v.cart)" :key="price">
+          <li v-for="price in bookData.filter((v)=>v.order)" :key="price">
               <span>{{price.title}}</span>
               <em>1</em>
           </li>
@@ -158,9 +158,9 @@
   </div>
   <ul class="product_info">
       <li>
-          <span class="title">배송비</span>
+          <span class="title">배송비 (30000원 이상 무료)</span>
           <span class="info" :class="{active : this.priceSum >= 30000}">
-              5000
+              5000 
           </span>
       </li>
   </ul>
@@ -185,31 +185,48 @@ export default {
       deliverAdd : 0,
       priceSum : 0,
       orderList : [],
-      add : []
+      add : [],
+      itemLength : 0,
+      requestMsg : "직접입력",
+      userMsg : "",
     }
   },
   methods : {
-    chkAdd() {
-        const chkList = document.querySelectorAll('.item_check input')
-        chkList.forEach(function(chkBox){
-            console.log(chkBox,chkBox.checked);
-        })
+    chkAdd(e,item) {
+        this.itemLength = 0;
+        const itemArr = document.querySelectorAll('.item_check input')
+        itemArr.forEach((v)=>{ if(v.checked) this.itemLength++ })
+        if(e && item){
+            item.target.checked ? e.order = true || this.itemLength++ : e.order = false
+            
+        } else {
+            this.bookData.map((v)=> {
+                if(v.cart){
+                    v.order = true
+                }
+            })
+        }
+        this.priceCalc()
     },
     priceCalc() {
+        this.priceSum = 0;
         bookData.map((v)=>{
-            if(v.cart) this.priceSum += v.price
+            if(v.order) this.priceSum += v.price
         })
     },
     payment() {
         this.orderList = []
-        const item = bookData.filter((v)=>v.cart)
+        const item = bookData.filter((v)=>v.order)
         this.orderList.push(item)
-        alert(`${this.priceSum}원 결제 완료`)
+        // alert(`${this.priceSum}원 결제 완료`)
         this.$parent.orderListSubmit(item)
+        this.requestMsg === '직접입력' ? this.emitMsg = this.userMsg : this.emitMsg = this.requestMsg
+        this.$parent.emitMsg = this.emitMsg;
     }
   },
   mounted() {
     this.priceCalc()
+    this.chkAdd()
   }
 }
 </script>

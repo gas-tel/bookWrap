@@ -3,7 +3,7 @@
     <button @click="clickBookClass(this)">{{menuTitle}}</button>
     <ul class="book-list-ui" v-if="bookType === this.contentType">
       <li v-for="book in bookData.filter((v) => v.content === this.contentType)" :key="book" :class="{bookInfo : book.animation === true}">
-        <img :src="book.imgSrc" alt="" :class="{wrap_item}" @click="bookInfo(book)">
+        <img :src="book.imgSrc" alt="" @click="bookInfo(book)">
         <span v-if="book.animation" class="thisInfobg" @click="bgClick(book)"></span>
         <span v-if="book.animation" class="thisInfo">
           <span class="title"><em>제목</em><span>{{book.title}}</span></span>

@@ -44,8 +44,8 @@
                 </div>
                 <AddressInfo v-if="goList === 'ADDRESS INFO'"/>
                 <WishList v-if="goList === 'WISH LIST'"/>
-                <BasketList v-if="goList === 'BASKET'" :orderList="orderList"/>
-                <OrderList v-if="goList === 'ORDER LIST'" :orderList="orderList"/>
+                <BasketList v-if="goList === 'BASKET'"/>
+                <OrderList v-if="goList === 'ORDER LIST'" :emitMsg="emitMsg" :orderList="orderList"/>
             </div>
         </div>
     </div>
@@ -76,6 +76,7 @@ export default {
             mypageType : this.mypagetype,
             page : this.$route.query.type,
             orderList : [],
+            emitMsg : ""
         }
     },
     computed : {
@@ -92,7 +93,7 @@ export default {
         },
         orderListSubmit(list) {
             this.orderList = list
-        }
+        },
     },
     watch : {
         $route(link){

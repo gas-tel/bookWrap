@@ -1,16 +1,23 @@
 <template>
     <div class="sch-box">
-        <select name="" id="">
-            <option value="">All</option>
-        </select>
-        <input type="text" placeholder="">
-        <button class="sch_btn">Search</button>
+        <input type="text" placeholder="" v-model="searchText" @keyup.enter="submit">
+        <button class="sch_btn" @click="submit">Search</button>
     </div>
 </template>
 
 <script>
 export default {
-
+    data() {
+        return {
+            searchText : ""
+        }
+    },
+    methods : {
+        submit() {
+            this.$root.itemSearch(this.searchText)
+            this.$root.navActive = 'search'
+        }
+    }
 }
 </script>
 
