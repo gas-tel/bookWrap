@@ -8,7 +8,7 @@
         <div class="bookListWrap">
             <div class="info" v-if="currentRoute.query.text">
                 <div class="empty" v-if="bookData.filter((v)=>v.title.match(currentRoute.query.text))==0">
-                    " <strong>{{currentRoute.query.text}}</strong> " 에 대한 검색결과가 없습니다.
+                    "<strong>{{currentRoute.query.text}}</strong>" 에 대한 검색결과가 없습니다.
                 </div>
             </div>
             <div class="serch_wrap" v-if="currentRoute.query.text">
@@ -33,11 +33,9 @@
                     <div class="book_info">
                         <ul class="info">
                             <li>
-                                <span>제목</span>
                                 <strong>{{book.title}}</strong>
                             </li>
                             <li>
-                                <span>발행일</span>
                                 <strong>{{book.date}}</strong>
                             </li>
                         </ul>
@@ -71,19 +69,28 @@
                 <div class="book_info">
                     <ul class="info">
                         <li>
-                            <span>제목</span>
                             <strong>{{book.title}}</strong>
                         </li>
                         <li>
-                            <span>발행일</span>
-                            <strong>{{book.date}}</strong>
+                            <span>{{book.salesValue}}
+                                <i class="xi-caret-up-min" v-if="book.salesValue > 30"></i>
+                                <i class="xi-caret-down-min" v-else></i>
+                                 · {{book.date}} · {{book.content}}</span>
+                        </li>
+                        <li>
+                            <span class="sale">{{book.sale}}%</span>
+                            <strong>{{book.price-(book.price/book.sale)}}원</strong> 
+                            <span class="salePec">{{book.price}}원</span>
+                        </li>
+                        <li class="book_info">
+                            {{book.info}}
                         </li>
                     </ul>
                     <div class="shopping">
-                        <button class="xi-heart" v-if="book.like" @click="likeBtn(book)"></button>
-                        <button class="xi-heart-o" v-else @click="likeBtn(book)"></button>
-                        <button class="xi-cart" v-if="book.cart" @click="cartBtn(book)"></button>
-                        <button class="xi-cart-o" v-else @click="cartBtn(book)"></button>
+                        <button class="xi-heart" v-if="book.like" @click="likeBtn(book)">찜하기</button>
+                        <button class="xi-heart-o" v-else @click="likeBtn(book)">찜하기</button>
+                        <button class="xi-cart" v-if="book.cart" @click="cartBtn(book)">장바구니</button>
+                        <button class="xi-cart-o" v-else @click="cartBtn(book)">장바구니</button>
                     </div>
                 </div>
             </div>
@@ -105,6 +112,7 @@ export default {
             bookData,
             searchText : "",
             currentRoute : this.$router.currentRoute,
+            bookRanked : 0
         }
     },
     methods : {
@@ -127,7 +135,7 @@ export default {
 <style lang="scss" scoped>
 .sch-wrap {margin-top: 7rem;}
 .bookListWrap,.serch_wrap {display: flex; width: 100%; flex-wrap: wrap;
-    .book_box {width: 50%; margin-bottom: 3rem; display: flex; margin-top: 5rem;
+    .book_box {width: 110rem; display: flex; margin-top: -1px; padding: 0 3rem; border-top: 1px solid #d5d5d5; border-bottom: 1px solid #d5d5d5;
         img {display: block; box-shadow: 0px 10px 12px #00000014; transition: .3s all;}
         &:hover {
             .book {
@@ -142,7 +150,7 @@ export default {
                 }
             }
         }
-        .book {position: relative; width: 20rem; height: 29rem; -webkit-perspective: 1000px; perspective: 1000px; -webkit-transform-style: preserve-3d; transform-style: preserve-3d;
+        .book {position: relative; width: 14rem; height: auto; -webkit-perspective: 1000px; perspective: 1000px; -webkit-transform-style: preserve-3d; transform-style: preserve-3d;
             .book_front {transform: rotateY(-0) translateZ(0);  position: absolute; width: 100%; height: 100%; z-index: 9999;
                 & > span {
                     &:first-child {background-color: #eee;}
@@ -155,16 +163,27 @@ export default {
                 span {background: #ececec; position: static;}
             }
         }
-        .book_info {padding: 6rem; width: calc(100% - 20rem); display: flex; flex-wrap: wrap; align-items: center;
-            .info {
+        .book_info {padding: 6rem 0 6rem 6rem; width: 100%; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+            .info {width: calc(100% - 20rem);
                 li {padding: 1rem 0;
-                    span {width: 5rem; display: inline-block;}
+                    span {display: inline-block;}
+                    strong {font-size: 2rem;}
+                    &.book_info {white-space: pre-line; word-break: keep-all; display: -webkit-box;
+    white-space: normal; overflow: hidden; text-overflow: ellipsis; height: 7rem; padding-top: 1rem; -webkit-line-clamp: 3; -webkit-box-orient: vertical;}
+                    .sale {color: #4dac27; margin-right: .5rem; font-size: 2rem;}
+                    .salePec {font-size: 1.3rem; text-decoration: line-through; margin-left: .5rem;}
                 }
             }
-            .shopping {width: 100%;
-                button {width: 50%; border: 1px solid #ddd; transition: .3s all; padding: 1rem; margin-left: -1px; font-size: 2rem;
+            .xi-caret-up-min {color: #d83b3b;}
+            .xi-caret-down-min {color: #468df7;}
+            .shopping {width: 12rem; display: flex; flex-wrap: wrap;
+                button {width: 100%; border: 1px solid #ddd; transition: .3s all; display: flex; align-content: center; justify-content: center;
+                padding: 1rem; margin-left: -1px; font-size: 2rem; border-radius: .6rem; font-size: 1.3rem;
                     &.xi-heart {color: #d83b3b;}
                     &.xi-cart {color: #468df7;}
+                    &:first-child {margin-bottom: .5rem;}
+                    &::before {margin: .1rem .5rem 0 0;}
+                    &:hover {background: #b350a8; color:#fff; border-color: #b350a8;} 
                 }
             }
         }
@@ -191,16 +210,16 @@ export default {
 
 .page span:nth-child(5) { -webkit-transform: rotateY(-36deg); transform: rotateY(-36deg); }
 
-.book_back, .book_back span, .book_front, .book_front span { position: absolute; top: 0; left: 0; width: 100%; height: 100%; -webkit-transform-style: preserve-3d; transform-style: preserve-3d; }
+.book_back, .book_back span, .book_front, .book_front span { position: absolute; top: 3rem; left: 0; width: 100%; height: 21rem; -webkit-transform-style: preserve-3d; transform-style: preserve-3d; }
 
 .book_back, .book_front { -webkit-transform-origin: 0 100%; transform-origin: 0 100%; }
 
 .book_front {  z-index : 55; transition: all 0.3s ease, }
 
-.page, .page > span { position: absolute; top: 0; left: 0; z-index: -1; -webkit-transform-style: preserve-3d; transform-style: preserve-3d; }
+.page, .page > span { position: absolute; top: 3rem; left: 0; z-index: -1; -webkit-transform-style: preserve-3d; transform-style: preserve-3d; }
 
-.page { width: 100%; height: 98%; top: 1%; left: 3%; z-index: -1; }
+.page { width: 100%; height: 20rem; top: 3.3rem; left: 3%; z-index: -1; }
 
 .page > span { width: 100%; height: 100%; transform-origin: left center; transition-timing-function: ease; }
-.book .book_front span img.device2 {position: absolute; width: 100%; height: 100%; z-index: 9999;}
+.book .book_front span img.device2 {position: absolute; width: 100%; height: 21rem; z-index: 9999;}
 </style>

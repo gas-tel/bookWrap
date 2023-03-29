@@ -65,7 +65,7 @@ export default {
         &.top-section {color: #fff; position: relative;
             &::after {display: block; content: ''; width: 100%; position: fixed; background: #000; height: 4.5rem; z-index: -1; left: 0;}
         }
-        &.sch-section {height: calc(100vh - 4rem); background: #000; width: 100%; align-items: baseline; margin-top: 4rem;
+        &.sch-section {height: calc(100vh - 4rem); overflow: hidden; background: #000; width: 100%; align-items: baseline; margin-top: 4rem;
             &::before {content: ""; position: fixed; left: 0; right: 0; top: 0; bottom: 0; z-index: 999999; background-image: url(./../assets/img/common/noise.png); background-repeat: repeat;
     opacity: 0.1; pointer-events: none; animation-name: noise; animation-duration: 0.2s; animation-iteration-count: infinite; animation-timing-function: linear;
 }

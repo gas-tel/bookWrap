@@ -211,8 +211,9 @@ export default {
     priceCalc() {
         this.priceSum = 0;
         bookData.map((v)=>{
-            if(v.order) this.priceSum += v.price
+            if(v.order) this.priceSum += v.price-(v.price/v.sale)
         })
+        if(this.priceSum <= 30000) this.priceSum+=5000
     },
     payment() {
         this.orderList = []

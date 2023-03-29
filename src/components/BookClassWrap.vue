@@ -79,7 +79,7 @@ export default {
               }
               em {width: 10rem; display: block; font-size: 1.6rem;}
             }
-            .bookInfo {flex-wrap: wrap; white-space: pre-line; max-width: 60rem; word-break: keep-all; display: -webkit-box;
+            .bookInfo {white-space: pre-line; max-width: 60rem; word-break: keep-all; display: -webkit-box;
     white-space: normal; overflow: hidden; text-overflow: ellipsis; height: 15rem; padding-top: 5rem; -webkit-line-clamp: 4; -webkit-box-orient: vertical;}
           }
         }
