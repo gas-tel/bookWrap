@@ -38,13 +38,18 @@
         </ul>
         <ul class="users">
             <li>
-                <router-link to="./myPage" @click="topNavBtn('mypage')" :class="{active : navActive === 'mypage'}">MY PAGE</router-link>
-            </li>
-            <li class="cart" >
-                <router-link :mypagetype="mypagetype"
+                <router-link
                 :to="{
                   name: 'myPage', 
-                  query: {type: 'BASKET'}}" @click="[topNavBtn('mypage')]" :class="{active : navActive === 'mypage'}">
+                  query: {type: 'ADDRESS INFO'}}"
+                @click="topNavBtn('mypage') " :class="{active : navActive === 'mypage'}">MY PAGE</router-link>
+            </li>
+            <li class="cart" >
+                <router-link
+                :to="{
+                  name: 'myPage', 
+                  query: {type: 'BASKET'}}"
+                  @click="[topNavBtn('mypage')]" :class="{active : navActive === 'mypage'}">
                   <i class="xi-cart-o"></i>
                 </router-link>
                 <span class="cart_count">{{cart}}</span>
@@ -77,6 +82,7 @@ export default {
       cart : 0,
       navActive : 'home',
       mypagetype : 'BASKET',
+      mypagetypeHome : 'ADDRESS INFO',
     }
   },
   methods : {
@@ -87,13 +93,13 @@ export default {
           if(v.cart === true) _this.cart++
       })
     },
-    topNavBtn(focus) {
-      this.navActive = focus
-    },
     itemSearch(text) {
       this.$router.push({ path: '/contentPage'})
       this.$router.push({ name: 'contentPage', query: {text: text} })
-    }
+    },
+    topNavBtn(focus) {
+      this.navActive = focus
+    },
   },
   created() {
       this.cartSum();

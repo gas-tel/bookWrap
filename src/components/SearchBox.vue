@@ -1,6 +1,6 @@
 <template>
     <div class="sch-box">
-        <input type="text" v-model="searchText" @keyup.enter="submit" :placeholder="placeholder">
+        <input type="text" v-model="searchText" @keyup.enter="submit" :placeholder="placeholder" @click="this.placeholder = ''">
         <button class="sch_btn" @click="submit">Search</button>
     </div>
 </template>

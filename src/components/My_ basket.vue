@@ -9,7 +9,7 @@
           <li v-for="data in bookData.filter((v)=>v.cart===true)" :key="data">
                 <span class="item_check">
                     <input type="checkbox" name="" id="" checked @click="chkAdd(data,$event)" 
-                     :class="[data.title]"/>
+                     :class="[data.id]"/>
                 </span>
               <span class="row_img_box">
                   <img :src="data.imgSrc" alt="">
@@ -29,6 +29,7 @@
                   <span class="sale" v-if="data.sale > 0">({{data.sale}}% 할인)</span>
               </span>
           </li>
+            <span v-if="bookData.filter((v)=>v.cart===true).length === 0">asd</span>
         </ul>
     </div>
     <div class="normal_row_wrap">
@@ -198,7 +199,6 @@ export default {
         itemArr.forEach((v)=>{ if(v.checked) this.itemLength++ })
         if(e && item){
             item.target.checked ? e.order = true || this.itemLength++ : e.order = false
-            
         } else {
             this.bookData.map((v)=> {
                 if(v.cart){
@@ -216,13 +216,23 @@ export default {
         if(this.priceSum <= 30000) this.priceSum+=5000
     },
     payment() {
-        this.orderList = []
         const item = bookData.filter((v)=>v.order)
         this.orderList.push(item)
         alert(`${this.priceSum}원 결제 완료`)
         this.$parent.orderListSubmit(item)
         this.requestMsg === '직접입력' ? this.emitMsg = this.userMsg : this.emitMsg = this.requestMsg
         this.$parent.emitMsg = this.emitMsg;
+        const itemArr = document.querySelectorAll('.item_check input')
+        itemArr.forEach((el)=>{ if(el.checked === true){
+            bookData.map((v)=>{
+                if(el.className == v.id) {
+                     v.cart = false
+                     v.order  = false
+                }
+            })
+        }})
+        this.priceCalc()
+        this.$forceUpdate()
     }
   },
   mounted() {

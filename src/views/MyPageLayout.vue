@@ -61,7 +61,7 @@ import BasketList from '@/components/My_ basket.vue'
 import bookData from '@/assets/data/bookData.js'
 
 export default {
-    props : ['type','mypagetype'],
+    props : ['type'],
     components : {
         AddressInfo,
         OrderList,
@@ -73,7 +73,6 @@ export default {
             userData,
             bookData,
             goList: 'ADDRESS INFO',
-            mypageType : this.mypagetype,
             page : this.$route.query.type,
             orderList : [],
             emitMsg : ""
@@ -92,12 +91,14 @@ export default {
             this.orderList = bookData.filter((v)=>v.cart)
         },
         orderListSubmit(list) {
-            this.orderList = list
+            list.map((v)=>this.orderList.push(v))
         },
     },
     watch : {
         $route(link){
-            if(link.fullPath === '/myPage?type=BASKET') this.goList = 'BASKET'
+            link.fullPath === '/myPage?type=BASKET' 
+                ? this.goList = 'BASKET'
+                : this.goList = 'ADDRESS INFO'
         },
     },
     mounted() {
