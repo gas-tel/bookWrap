@@ -77,8 +77,9 @@ export default {
   },
   methods : {
     priceCalc() {
-      this.orderList.map((v) => {this.orderPriceSum += v.price-(v.price/v.sale)})
+      this.orderList.map((v) => {this.orderPriceSum += (v.price-(v.price/v.sale))})
         if(this.orderPriceSum <= 30000) this.orderPriceSum+=5000
+        this.orderPriceSum = this.orderPriceSum.toLocaleString('ko-KR')
     }
   },
   created() {

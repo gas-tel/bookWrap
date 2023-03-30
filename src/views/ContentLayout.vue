@@ -31,21 +31,35 @@
                         </div>
                     </div>
                     <div class="book_info">
-                        <ul class="info">
-                            <li>
-                                <strong>{{book.title}}</strong>
-                            </li>
-                            <li>
-                                <strong>{{book.date}}</strong>
-                            </li>
-                        </ul>
-                        <div class="shopping">
-                            <button class="xi-heart" v-if="book.like" @click="likeBtn(book)"></button>
-                            <button class="xi-heart-o" v-else @click="likeBtn(book)"></button>
-                            <button class="xi-cart" v-if="book.cart" @click="cartBtn(book)"></button>
-                            <button class="xi-cart-o" v-else @click="cartBtn(book)"></button>
-                        </div>
+                    <ul class="info">
+                        <li>
+                            <strong>{{book.title}}</strong>
+                        </li>
+                        <li>
+                            <span>{{book.salesValue}}
+                                <i class="xi-caret-up-min" v-if="book.salesValue > 30"></i>
+                                <i class="xi-caret-down-min" v-else></i>
+                                 · {{book.date}} · {{book.content}}</span>
+                        </li>
+                        <li v-if="book.sale > 0">
+                            <span class="sale">{{book.sale}}%</span>
+                            <strong>{{book.price-(book.price/book.sale)}}원</strong> 
+                            <span class="salePec">{{book.price}}원</span>
+                        </li>
+                        <li v-else>
+                            <strong>{{book.price}}원</strong> 
+                        </li>
+                        <li class="book_info">
+                            {{book.info}}
+                        </li>
+                    </ul>
+                    <div class="shopping">
+                        <button class="xi-heart" v-if="book.like" @click="likeBtn(book)">찜하기</button>
+                        <button class="xi-heart-o" v-else @click="likeBtn(book)">찜하기</button>
+                        <button class="xi-cart" v-if="book.cart" @click="cartBtn(book)">장바구니</button>
+                        <button class="xi-cart-o" v-else @click="cartBtn(book)">장바구니</button>
                     </div>
+                </div>
                 </div>
             </div>
             <div v-else class="book_box" v-for="book in bookData.filter((v) => v.content === $route.query.type)" :key="book">
@@ -77,10 +91,13 @@
                                 <i class="xi-caret-down-min" v-else></i>
                                  · {{book.date}} · {{book.content}}</span>
                         </li>
-                        <li>
+                        <li v-if="book.sale > 0">
                             <span class="sale">{{book.sale}}%</span>
                             <strong>{{book.price-(book.price/book.sale)}}원</strong> 
                             <span class="salePec">{{book.price}}원</span>
+                        </li>
+                        <li v-else>
+                            <strong>{{book.price}}원</strong> 
                         </li>
                         <li class="book_info">
                             {{book.info}}
@@ -163,13 +180,13 @@ export default {
                 span {background: #ececec; position: static;}
             }
         }
-        .book_info {padding: 6rem 0 6rem 6rem; width: 100%; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+        .book_info {padding: 3rem 0 3rem 5rem; width: 100%; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
             .info {width: calc(100% - 20rem);
                 li {padding: 1rem 0;
                     span {display: inline-block;}
                     strong {font-size: 2rem;}
-                    &.book_info {white-space: pre-line; word-break: keep-all; display: -webkit-box;
-    white-space: normal; overflow: hidden; text-overflow: ellipsis; height: 7rem; padding-top: 1rem; -webkit-line-clamp: 3; -webkit-box-orient: vertical;}
+                    &.book_info {white-space: pre-line; word-break: keep-all; display: -webkit-box; font-size: 1.3rem;
+    white-space: normal; overflow: hidden; text-overflow: ellipsis; height: 6rem; padding-top: 1rem; -webkit-line-clamp: 3; -webkit-box-orient: vertical;}
                     .sale {color: #4dac27; margin-right: .5rem; font-size: 2rem;}
                     .salePec {font-size: 1.3rem; text-decoration: line-through; margin-left: .5rem;}
                 }
@@ -210,16 +227,16 @@ export default {
 
 .page span:nth-child(5) { -webkit-transform: rotateY(-36deg); transform: rotateY(-36deg); }
 
-.book_back, .book_back span, .book_front, .book_front span { position: absolute; top: 3rem; left: 0; width: 100%; height: 21rem; -webkit-transform-style: preserve-3d; transform-style: preserve-3d; }
+.book_back, .book_back span, .book_front, .book_front span { position: absolute; top: 2rem; left: 0; width: 100%; height: 18rem; -webkit-transform-style: preserve-3d; transform-style: preserve-3d; }
 
 .book_back, .book_front { -webkit-transform-origin: 0 100%; transform-origin: 0 100%; }
 
 .book_front {  z-index : 55; transition: all 0.3s ease, }
 
-.page, .page > span { position: absolute; top: 3rem; left: 0; z-index: -1; -webkit-transform-style: preserve-3d; transform-style: preserve-3d; }
+.page, .page > span { position: absolute; top: 2rem; left: 0; z-index: -1; -webkit-transform-style: preserve-3d; transform-style: preserve-3d; }
 
-.page { width: 100%; height: 20rem; top: 3.3rem; left: 3%; z-index: -1; }
+.page { width: 100%; height: 17.5rem; top: 2.3rem; left: 3%; z-index: -1; }
 
 .page > span { width: 100%; height: 100%; transform-origin: left center; transition-timing-function: ease; }
-.book .book_front span img.device2 {position: absolute; width: 100%; height: 21rem; z-index: 9999;}
+.book .book_front span img.device2 {position: absolute; width: 100%; height: 18rem; z-index: 9999;}
 </style>

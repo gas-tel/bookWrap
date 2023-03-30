@@ -80,8 +80,15 @@ export default {
         }
     }
     .sch-wrap {display: flex; padding: 1rem 3rem; align-items: center; margin: 0 auto; flex-wrap: wrap; margin-top: 3rem; position: relative;
+        .rank-box {width: 100rem; display: flex; justify-content: center; margin: 0 calc(50% - 50rem);
+            li {margin: 3rem 1rem 1rem; color: #ac59f6; text-align: center;
+                span {cursor: pointer; transition: .3s all; font-size: 1.3rem;
+                    &:hover {font-weight: 800;}
+                }
+            }
+        }
         .sch-box {border: 3px solid #992dfa; border-radius: 5rem; width: 40rem; display: flex; align-items: center; height: 4rem; box-sizing: border-box; 
-        overflow: hidden; background: rgb(34, 146, 226); margin: 0 auto;
+        overflow: hidden; background: rgb(98, 157, 199); margin: 0 auto;
             select {border-radius: 5rem 0 0 5rem; border: none; font-size: 1.3rem; width: 10rem;}
             input[type=text] {border: none; width: calc(100% - 7rem); height: 4rem;}
             button {width: 7rem; background : #992dfa; height: 4rem; display: inline-block; color: #fff;}

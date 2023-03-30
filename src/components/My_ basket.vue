@@ -29,7 +29,9 @@
                   <span class="sale" v-if="data.sale > 0">({{data.sale}}% 할인)</span>
               </span>
           </li>
-            <span v-if="bookData.filter((v)=>v.cart===true).length === 0">asd</span>
+            <li class="basket_empty" v-if="bookData.filter((v)=>v.cart===true).length === 0">
+                장바구니가 비어있습니다. <i class="xi-message-o"></i>
+            </li>
         </ul>
     </div>
     <div class="normal_row_wrap">
@@ -111,9 +113,9 @@
             <li class="radio_row">
                 <strong>결제수단</strong>
                 <span class="radio_wrap">
-                    <input type="radio" name="paymentMethodCd" id="paymentMethodCd1" value="USR005001">
+                    <input type="radio" name="paymentMethodCd" id="paymentMethodCd1" checked>
                     <label for="paymentMethodCd1">신용카드</label>
-                    <input type="radio" name="paymentMethodCd" id="paymentMethodCd2" value="USR005002">
+                    <input type="radio" name="paymentMethodCd" id="paymentMethodCd2" >
                     <label for="paymentMethodCd2">실시간 계좌이체</label>
                 </span>
             </li>
@@ -214,6 +216,7 @@ export default {
             if(v.order) this.priceSum += v.price-(v.price/v.sale)
         })
         if(this.priceSum <= 30000) this.priceSum+=5000
+        this.priceSum = this.priceSum.toLocaleString('ko-KR')
     },
     payment() {
         const item = bookData.filter((v)=>v.order)
@@ -231,6 +234,7 @@ export default {
                 }
             })
         }})
+        this.$root.cartSum()
         this.priceCalc()
         this.$forceUpdate()
     }
@@ -269,6 +273,9 @@ export default {
         .normal_row_wrap_content {margin-top: 1.2rem; border-top: 2px solid #444;
             &.pd_10 {
               &>li {padding: 1rem 0 !important;}
+            }
+            .basket_empty {padding: 4rem; display: flex; justify-content: center;
+                i {margin-top: -1.5rem;}
             }
             &>li {padding: 2rem 0; border-bottom: 1px solid #E8E8E8; display: flex; align-content: center;
                 &>* {display: flex; align-items: center; justify-content: left; flex-wrap: wrap;}

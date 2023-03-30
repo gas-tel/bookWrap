@@ -5,6 +5,10 @@
   margin: 0 auto;
 }
 
+input:focus {
+  outline: none;
+}
+
 html {
   position: relative;
   font-size: 10px;

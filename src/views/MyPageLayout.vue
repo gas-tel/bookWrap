@@ -4,9 +4,8 @@
         <h3 class="private_title">MY PAGE</h3>
         <div class="private_info">
             <span class="user">
-                <strong><em>{{userData.guest1.name}}</em> 님</strong>의 My page
+                <strong><em>{{userData.guest1.name}}</em> 님</strong>
             </span>
-            <a href="" class="btn_move">회원정보 수정<i class="xi-angle-right-min"></i></a>
         </div>
     </div>
     <div class="my_page_container">
