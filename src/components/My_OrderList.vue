@@ -29,12 +29,15 @@
         <div class="left">
             <span>주문번호 5DDBB4</span>
         </div>
-        <div class="right">
+        <div class="right" v-if="this.emitMsg === ''">
+            <span>배송 요청 사항 : 없음 </span>
+        </div>
+        <div class="right" v-else>
             <span>배송 요청 사항 : {{this.emitMsg}}</span>
         </div>
     </div>
     <ul class="check_order_list_content">
-        <li v-for="order in this.orderList" :key="order">
+        <li v-for="order in orderList" :key="order">
             <span class="info">
                 <span class="img_box">
                     <img :src="order.imgSrc" alt="">
@@ -46,8 +49,8 @@
             </span>
             <span class="detail">
                 <span class="price">
-                    <span>{{order.price - (order.price/order.sale)}}</span>
-                    <em>{{order.price}}</em>
+                    <span>{{$filters.makeComma(order.price - (order.price/order.sale))}}</span>
+                    <em>{{$filters.makeComma(order.price)}}</em>
                 </span>
                 <span class="number">{{order.content}}</span>
                 <strong class="condition ing">주문접수</strong>
@@ -60,7 +63,7 @@
         </div>
         <div class="right">
             <span>총 결제금액</span>
-            <strong>{{orderPriceSum}}</strong>
+            <strong>{{$filters.makeComma(orderPriceSum)}}</strong>
             <em>원</em>
         </div>
     </div>
@@ -68,23 +71,32 @@
 </template>
 
 <script>
+import orderData from '@/assets/data/bookData'
+
 export default {
-  props : ['orderList','emitMsg'],
+  props : ['emitMsg'],
   data() {
     return {
+        orderData,
+        orderList : [],
       orderPriceSum : 0,
     }
   },
   methods : {
-    priceCalc() {
-      this.orderList.map((v) => {this.orderPriceSum += (v.price-(v.price/v.sale))})
-        if(this.orderPriceSum <= 30000) this.orderPriceSum+=5000
-        this.orderPriceSum = this.orderPriceSum.toLocaleString('ko-KR')
+        orderCheck() {
+            orderData.map((v)=> {
+                if(v.order) {
+                    this.orderList.push(v)
+                    this.orderPriceSum += (v.price-(v.price/v.sale))
+                }
+            })
+            if(this.orderPriceSum === 0) this.orderPriceSum = 0
+            else if(this.orderPriceSum <= 30000) this.orderPriceSum+=5000
+        }
+    },
+    created() {
+        this.orderCheck();
     }
-  },
-  created() {
-    this.priceCalc();
-  }
 }
 </script>
 

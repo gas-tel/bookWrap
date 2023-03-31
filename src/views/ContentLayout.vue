@@ -93,11 +93,11 @@
                         </li>
                         <li v-if="book.sale > 0">
                             <span class="sale">{{book.sale}}%</span>
-                            <strong>{{book.price-(book.price/book.sale)}}원</strong> 
-                            <span class="salePec">{{book.price}}원</span>
+                            <strong>{{$filters.makeComma(book.price-(book.price/book.sale))}}원</strong> 
+                            <span class="salePec">{{$filters.makeComma(book.price)}}원</span>
                         </li>
                         <li v-else>
-                            <strong>{{book.price}}원</strong> 
+                            <strong>{{$filters.makeComma(book.price)}}원</strong> 
                         </li>
                         <li class="book_info">
                             {{book.info}}
@@ -112,6 +112,7 @@
                 </div>
             </div>
         </div>
+        <ContentSideBox/>
     </section>
 </template>
 
@@ -119,9 +120,10 @@
 <script>
 import SearchBox from '@/components/SearchBox.vue'
 import bookData from "./../assets/data/bookData.js"
+import ContentSideBox from '@/components/ContentSideBox.vue'
 
 export default {
-    components : { SearchBox },
+    components : { SearchBox, ContentSideBox },
     name : 'contentPage',
     props: ['text'],
     data () {
@@ -170,7 +172,7 @@ export default {
         .book {position: relative; width: 14rem; height: auto; -webkit-perspective: 1000px; perspective: 1000px; -webkit-transform-style: preserve-3d; transform-style: preserve-3d;
             .book_front {transform: rotateY(-0) translateZ(0);  position: absolute; width: 100%; height: 100%; z-index: 9999;
                 & > span {
-                    &:first-child {background-color: #eee;}
+                    &:first-child {background-color: #eee;  border: 1px solid #ddd}
                 }
             }
             .page {transition: all .1s; visibility: hidden; opacity: 0; width: 1px; position: absolute; z-index: -1;
@@ -227,7 +229,7 @@ export default {
 
 .page span:nth-child(5) { -webkit-transform: rotateY(-36deg); transform: rotateY(-36deg); }
 
-.book_back, .book_back span, .book_front, .book_front span { position: absolute; top: 2rem; left: 0; width: 100%; height: 18rem; -webkit-transform-style: preserve-3d; transform-style: preserve-3d; }
+.book_back, .book_back span, .book_front, .book_front span { position: absolute;; top: 2rem; left: 0; width: 100%; height: 18rem; -webkit-transform-style: preserve-3d; transform-style: preserve-3d; }
 
 .book_back, .book_front { -webkit-transform-origin: 0 100%; transform-origin: 0 100%; }
 

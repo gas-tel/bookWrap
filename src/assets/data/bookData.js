@@ -23,7 +23,7 @@ export default [
     },
     {
         title : "검은 달 백은의 언덕",
-        like : false,
+        like : true,
         cart : false,
         content :"novel",
         date : "2023-01-01",
@@ -58,7 +58,7 @@ export default [
     },
     {
         title : "원피스",
-        like : false,
+        like : true,
         cart : false,
         content : "comic",
         date : "2022-12-12",
@@ -120,7 +120,7 @@ export default [
     },
     {
         title : "실버뷰",
-        like : false,
+        like : true,
         cart : false,
         content : "novel",
         date : "2022-10-25",
@@ -165,7 +165,7 @@ export default [
     },
     {
         title : "GPT 제너레이션",
-        like : false,
+        like : true,
         cart : true,
         content : "education",
         date : "2023-02-10",

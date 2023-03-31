@@ -23,8 +23,8 @@
                   </span>
               </span>
               <span class="cost" data-rate="1">
-                  <span class="origin_price" v-if="data.sale > 0">{{data.price}}원</span>
-                  <strong class="price" v-if="data.sale > 0">{{data.price-(data.price/data.sale)}}<em>원</em></strong>
+                  <span class="origin_price" v-if="data.sale > 0">{{$filters.makeComma(data.price)}}원</span>
+                  <strong class="price" v-if="data.sale > 0">{{$filters.makeComma(data.price-(data.price/data.sale))}}<em>원</em></strong>
                   <strong class="price" v-else>{{data.price}}<em>원</em></strong>
                   <span class="sale" v-if="data.sale > 0">({{data.sale}}% 할인)</span>
               </span>
@@ -123,12 +123,12 @@
                 <strong>구매금액</strong>
                 <ul class="payment_list">
                     <li v-for="price in bookData.filter((v)=>v.order)" :key="price">
-                        <span>{{price.title}}</span>
-                        <span >{{price.price}}<em>원</em></span>
+                        <span>{{$filters.makeComma(price.title)}}</span>
+                        <span >{{$filters.makeComma(price.price)}}<em>원</em></span>
                     </li>
                     <li class="payment_list_sum">
                         <strong>최종 결제금액</strong>
-                        <strong>{{priceSum}}<em>원</em></strong>
+                        <strong>{{$filters.makeComma(priceSum)}}<em>원</em></strong>
                     </li>
                 </ul>
             </li>
@@ -141,7 +141,7 @@
         <input type="hidden" name="paymentPrice" value="9444">  <!-- 결제금액 -->
         <strong>주문 내용을 모두 확인 하였으며, 결제에 동의합니다.</strong>
     </p>
-    <button class="btn_max" type="button" @click="payment()">{{priceSum}}원 결제하기</button>
+    <button class="btn_max" type="button" @click="payment()">{{$filters.makeComma(priceSum)}}원 결제하기</button>
 </div>
 <div class="purchase_wrap deliver_wrap">
   <div class="btn_request">
@@ -161,9 +161,9 @@
   </div>
   <ul class="product_info">
       <li>
-          <span class="title">배송비 (30000원 이상 무료)</span>
+          <span class="title">배송비 (30,000원 이상 무료)</span>
           <span class="info" :class="{active : this.priceSum >= 30000}">
-              5000 
+              5,000 
           </span>
       </li>
   </ul>
@@ -213,16 +213,16 @@ export default {
     priceCalc() {
         this.priceSum = 0;
         bookData.map((v)=>{
-            if(v.order) this.priceSum += v.price-(v.price/v.sale)
+            if(v.cart && v.order) this.priceSum += v.price-(v.price/v.sale)
         })
-        if(this.priceSum <= 30000) this.priceSum+=5000
+        if(this.priceSum === 0) this.priceSum = 0
+        else if(this.priceSum <= 30000) this.priceSum+=5000
         this.priceSum = this.priceSum.toLocaleString('ko-KR')
     },
     payment() {
         const item = bookData.filter((v)=>v.order)
         this.orderList.push(item)
         alert(`${this.priceSum}원 결제 완료`)
-        this.$parent.orderListSubmit(item)
         this.requestMsg === '직접입력' ? this.emitMsg = this.userMsg : this.emitMsg = this.requestMsg
         this.$parent.emitMsg = this.emitMsg;
         const itemArr = document.querySelectorAll('.item_check input')
@@ -230,7 +230,7 @@ export default {
             bookData.map((v)=>{
                 if(el.className == v.id) {
                      v.cart = false
-                     v.order  = false
+                     v.order = true
                 }
             })
         }})

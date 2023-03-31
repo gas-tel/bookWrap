@@ -44,7 +44,7 @@
                 <AddressInfo v-if="goList === 'ADDRESS INFO'"/>
                 <WishList v-if="goList === 'WISH LIST'"/>
                 <BasketList v-if="goList === 'BASKET'"/>
-                <OrderList v-if="goList === 'ORDER LIST'" :emitMsg="emitMsg" :orderList="orderList"/>
+                <OrderList v-if="goList === 'ORDER LIST'" :emitMsg="emitMsg"/>
             </div>
         </div>
     </div>
@@ -73,7 +73,6 @@ export default {
             bookData,
             goList: 'ADDRESS INFO',
             page : this.$route.query.type,
-            orderList : [],
             emitMsg : ""
         }
     },
@@ -88,9 +87,6 @@ export default {
         },
         basketSetting() {
             this.orderList = bookData.filter((v)=>v.cart)
-        },
-        orderListSubmit(list) {
-            list.map((v)=>this.orderList.push(v))
         },
     },
     watch : {
