@@ -122,7 +122,7 @@
             <li>
                 <strong>구매금액</strong>
                 <ul class="payment_list">
-                    <li v-for="price in bookData.filter((v)=>v.order)" :key="price">
+                    <li v-for="price in bookData.filter((v)=>v.cart)" :key="price">
                         <span>{{$filters.makeComma(price.title)}}</span>
                         <span >{{$filters.makeComma(price.price)}}<em>원</em></span>
                     </li>
@@ -153,7 +153,7 @@
           <span><i class="xi-basket"></i>주문상품 : {{itemLength}}</span>
       </div>
       <ul class="basket_list">
-          <li v-for="price in bookData.filter((v)=>v.order)" :key="price">
+          <li v-for="price in bookData.filter((v)=>v.cart)" :key="price">
               <span>{{price.title}}</span>
               <em>1</em>
           </li>

@@ -1,7 +1,7 @@
 <template>
     <div class="sch-box">
-        <input type="text" v-model="searchText" @keyup.enter="submit" :placeholder="placeholder" @click="this.placeholder = ''">
-        <button class="sch_btn" @click="submit">Search</button>
+        <input type="text" v-model="searchText" @keyup.enter="submit(searchText)" :placeholder="placeholder" @click="this.placeholder = ''">
+        <button class="sch_btn" @click="submit(searchText)">Search</button>
     </div>
     <ul class="rank-box">
         <li v-for="(rank) in this.bookRankList.slice(0,5)" :key="rank" >

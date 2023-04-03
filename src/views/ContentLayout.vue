@@ -7,8 +7,14 @@
     <section class="section">
         <div class="bookListWrap">
             <div class="info" v-if="currentRoute.query.text">
-                <div class="empty" v-if="bookData.filter((v)=>v.title.match(currentRoute.query.text))==0">
+                <div class="empty" v-if="bookData.filter((v)=>v.title.match(currentRoute.query.text))==0 ">
                     "<strong>{{currentRoute.query.text}}</strong>" 에 대한 검색결과가 없습니다.
+                </div>
+            </div>
+            <div class="serch_wrap" v-if="currentRoute.query.text == null && $route.query.type == 'search'">
+                <div class="alert">
+                    <i class="xi-search"></i>
+                    <strong>검색어를 입력해 주세요</strong>
                 </div>
             </div>
             <div class="serch_wrap" v-if="currentRoute.query.text">
@@ -60,8 +66,8 @@
                         <button class="xi-cart-o" v-else @click="cartBtn(book)">장바구니</button>
                     </div>
                 </div>
-                </div>
             </div>
+                </div>
             <div v-else class="book_box" v-for="book in bookData.filter((v) => v.content === $route.query.type)" :key="book">
                 <div class="book">
                     <div class="book_front">
@@ -146,15 +152,17 @@ export default {
             this.$parent.topNavBtn(bookType)
         },
     },
-    created() {
-    }
 }
 </script>
 
 <style lang="scss" scoped>
 .sch-wrap {margin-top: 7rem;}
-.bookListWrap,.serch_wrap {display: flex; width: 100%; flex-wrap: wrap;
-    .book_box {width: 110rem; display: flex; margin-top: -1px; padding: 0 3rem; border-top: 1px solid #d5d5d5; border-bottom: 1px solid #d5d5d5;
+.alert {display: flex; align-items: baseline; font-size: 3rem; justify-content: center; width: 100%;
+    strong {margin-left: 2rem;}
+}
+.bookListWrap {margin-top: 10rem;}
+.bookListWrap,.serch_wrap {display: flex; width: 100%; flex-wrap: wrap; min-height: 50vh; position: relative; z-index: 5;
+    .book_box {width: 110rem; height: fit-content; display: flex; margin-top: -1px; padding: 0 3rem; border-top: 1px solid #d5d5d5; border-bottom: 1px solid #d5d5d5;
         img {display: block; box-shadow: 0px 10px 12px #00000014; transition: .3s all;}
         &:hover {
             .book {
