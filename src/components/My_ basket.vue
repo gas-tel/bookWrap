@@ -122,7 +122,7 @@
             <li>
                 <strong>구매금액</strong>
                 <ul class="payment_list">
-                    <li v-for="price in bookData.filter((v)=>v.cart)" :key="price">
+                    <li v-for="price in bookData.filter((v)=>v.order && v.cart)" :key="price">
                         <span>{{$filters.makeComma(price.title)}}</span>
                         <span >{{$filters.makeComma(price.price)}}<em>원</em></span>
                     </li>
@@ -153,7 +153,7 @@
           <span><i class="xi-basket"></i>주문상품 : {{itemLength}}</span>
       </div>
       <ul class="basket_list">
-          <li v-for="price in bookData.filter((v)=>v.cart)" :key="price">
+          <li v-for="price in bookData.filter((v)=>v.order && v.cart)" :key="price">
               <span>{{price.title}}</span>
               <em>1</em>
           </li>
@@ -170,7 +170,7 @@
   <div class="product_cost">
       <div class="cost">
           <span class="title">최종결제금액</span>
-          <strong class="info">{{priceSum}}<em>원</em></strong>
+          <strong class="info">{{$filters.makeComma(priceSum)}}<em>원</em></strong>
       </div>
   </div>
 </div>
@@ -217,7 +217,6 @@ export default {
         })
         if(this.priceSum === 0) this.priceSum = 0
         else if(this.priceSum <= 30000) this.priceSum+=5000
-        this.priceSum = this.priceSum.toLocaleString('ko-KR')
     },
     payment() {
         const item = bookData.filter((v)=>v.order)

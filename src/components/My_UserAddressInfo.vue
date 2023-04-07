@@ -295,4 +295,25 @@ export default {
     }
     
 }
+  @media(max-width: 1280px) {
+        .check_row {
+            .check_order_box {overflow-x: scroll;
+                .right {
+                    .box {
+                        .btn_move {white-space: nowrap;}
+                    }
+                }
+            }
+            &.check_advice_list {
+                .check_advice_list_table {overflow-x: scroll;
+                    .check_advice_list_table_head {min-width: 80rem;}
+                    .check_advice_list_table_body {
+                        &>li {
+                            ul {min-width: 80rem;}
+                        }
+                    }
+                }
+            }
+        }
+  }
 </style>

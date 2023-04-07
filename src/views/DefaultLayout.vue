@@ -30,6 +30,14 @@
             " @click="contentActive(bookType)" :click="navActive"><button class="goBtn" >MORE {{bookType}} <i class="xi-trending-flat"></i></button></router-link>
         </div>
     </section>
+    <ul class="copyright">
+        <li>
+        <a href="">INFO</a>
+        </li>
+        <li>
+                <strong>© leedongyeol</strong>
+        </li>
+    </ul>
 </template>
 
 <script>
@@ -62,7 +70,7 @@ export default {
 
 <style lang="scss">
     .section {display: flex; justify-content: space-between; 
-        &.top-section {color: #fff; position: relative;
+        &.top-section {color: #fff; position: relative; max-width: 140rem; width: 100%;
             &::after {display: block; content: ''; width: 100%; position: fixed; background: #000; height: 4.5rem; z-index: -1; left: 0;}
         }
         &.sch-section {height: calc(100vh - 4rem); overflow: hidden; background: #000; width: 100%; align-items: baseline; margin-top: 4rem;
@@ -77,6 +85,14 @@ export default {
                 &::after {display: block; content: ''; width: 1px; height: .8rem; background: rgb(214, 214, 214); position: absolute; right: .65rem; top: 50%; transform: translateY(-50%);}
             }
             a.active {color: #d648fd;}
+        }
+    }
+    .copyright {display: inline-block; vertical-align: middle; position: fixed; right: 100px; bottom: 30px; transform: rotate(90deg); -webkit-transform: rotate(90deg); transform-origin: top right; transition: 0.3s; -webkit-transition: 0.3s;
+        li {display: inline-block; vertical-align: middle; margin-left: 5rem; transition: 0.3s; 
+        &:hover {
+            &>* {font-size: 2rem; transform: rotate(-90deg); -webkit-transform: rotate(-90deg);}
+        }
+        &>* {display: inline-block; vertical-align: middle; position: relative; font-size: 1.5rem; font-weight: 600; color: #fff; line-height: 40px; transition: 0.3s; -webkit-transition: 0.3s;}
         }
     }
     .sch-wrap {display: flex; padding: 1rem 3rem; align-items: center; margin: 0 auto; flex-wrap: wrap; margin-top: 3rem; position: relative;
@@ -127,6 +143,30 @@ export default {
 
     to {
         background-position: left top;
+    }
+}
+@media(max-width: 1280px){
+    .sch-wrap {padding: 0;
+        .rank-box {width: 100%; margin: auto;}
+        .sch-categoty {
+            li {
+                button {font-size: 4rem;}
+            }
+        }
+        .goBtn {right: inherit; left: 50%; transform: translateX(-50%); top: 30rem;}
+    }
+    .section {
+        &.top-section {padding: 0 1rem;}
+    }
+}
+@media(max-width: 760px){
+    .sch-wrap {padding: 0;
+        .rank-box {width: 100%; margin: auto;}
+        .sch-categoty {
+            li {padding: 1rem;
+                button {font-size: 3rem;}
+            }
+        }
     }
 }
 </style>

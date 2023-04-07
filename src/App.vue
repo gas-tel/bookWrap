@@ -58,14 +58,6 @@
     </section>
   </header>
   <router-view/>
-  <ul class="copyright">
-    <li>
-      <a href="">INFO</a>
-    </li>
-    <li>
-			<strong>© leedongyeol</strong>
-    </li>
-  </ul>
 </template>
 
 <script>
@@ -182,13 +174,5 @@ img {
           }
         }
       }
-  }
-  .copyright {display: inline-block; vertical-align: middle; position: fixed; right: 100px; bottom: 30px; transform: rotate(90deg); -webkit-transform: rotate(90deg); transform-origin: top right; transition: 0.3s; -webkit-transition: 0.3s;
-    li {display: inline-block; vertical-align: middle; margin-left: 5rem; transition: 0.3s; 
-      &:hover {
-        &>* {font-size: 2rem; transform: rotate(-90deg); -webkit-transform: rotate(-90deg);}
-      }
-      &>* {display: inline-block; vertical-align: middle; position: relative; font-size: 1.5rem; font-weight: 600; color: #fff; line-height: 40px; transition: 0.3s; -webkit-transition: 0.3s;}
-    }
   }
 </style>

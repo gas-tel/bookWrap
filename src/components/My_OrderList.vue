@@ -85,7 +85,7 @@ export default {
   methods : {
         orderCheck() {
             orderData.map((v)=> {
-                if(v.order) {
+                if(v.order && v.cart === false) {
                     this.orderList.push(v)
                     this.orderPriceSum += (v.price-(v.price/v.sale))
                 }

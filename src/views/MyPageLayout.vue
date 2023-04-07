@@ -49,6 +49,7 @@
         </div>
     </div>
   </div>
+  <Footer/>
 </template>
 
 <script>
@@ -58,6 +59,7 @@ import userData from './../assets/data/guest.js'
 import WishList from '@/components/My_wishList.vue'
 import BasketList from '@/components/My_ basket.vue'
 import bookData from '@/assets/data/bookData.js'
+import Footer from '@/components/FooterLayout.vue'
 
 export default {
     props : ['type'],
@@ -65,7 +67,8 @@ export default {
         AddressInfo,
         OrderList,
         WishList,
-        BasketList
+        BasketList,
+        Footer
     },
     data() {
         return {
@@ -86,7 +89,7 @@ export default {
             if(this.page==='BASKET') this.goList = this.page
         },
         basketSetting() {
-            this.orderList = bookData.filter((v)=>v.cart)
+            this.orderList = bookData.filter((v)=>v.order)
         },
     },
     watch : {
@@ -130,6 +133,15 @@ export default {
                         i {opacity: 1; visibility: visible;}
                     }
                 }
+            }
+        }
+    }
+    @media(max-width: 1280px){
+        .mypage_warp {width: 100%;
+            .my_page_title {display: none;}
+            .my_page_container {
+                .my_page_side_menu {position: fixed; width: 100%; top: 4rem; z-index: 10; background: #fff;}
+                .my_page_content_list {margin-left: 0; margin-top: 11rem; width: 100%;}
             }
         }
     }

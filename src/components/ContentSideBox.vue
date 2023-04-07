@@ -45,7 +45,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.coupon_wrap {position: fixed; right: 0; top: 100%; transform: translate(-50%,-120%); height: fit-content;
+.coupon_wrap {position: fixed; right: 0; top: 100%; transform: translate(-5%,-120%); height: fit-content;
   .list {overflow: hidden; position: relative; width: 40rem; z-index: -1;
     &>li {width: 10rem; height: 12rem; background: #fffafa; border-radius: 1.5rem; margin: .5rem 0 .5rem calc(100% - 10rem);
       justify-content: center; align-items: center; display: flex; overflow: hidden;
@@ -63,5 +63,8 @@ export default {
       .couponBtn {background: #468df7;}
     }
   }
+}
+@media(max-width: 1280px) {
+  .coupon_wrap {display: none;}
 }
 </style>

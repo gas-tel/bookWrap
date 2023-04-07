@@ -62,7 +62,9 @@ export default {
   }
   .book-list-ui {position: absolute; transform: rotate(-0deg) translateX(-50%); width: 100%; left: 50%; margin-left: 8rem;
   animation-duration: .2s; animation-fill-mode: forwards; animation-name: slidein; animation-timing-function: ease-in; 
-    li {position: absolute; border-radius: 5px;animation-fill-mode: forwards; animation-timing-function: ease-in; position: absolute; transform: .3s all;
+    li {position: absolute; border-radius: 5px;animation-fill-mode: forwards; padding: 0rem !important;
+    animation-timing-function: ease-in; position: absolute; transition: .3s all;
+        &:hover {margin-top: -3rem; transform: rotate(-0deg) translateX(-50%);}
         &.bookInfo {animation-duration: 5s; display: flex;
           @for $i from 0 to 11 {
             &:nth-child(#{$i}) {animation-name: slideEnd+$i; z-index: $i*1; animation-duration: 1s; animation-timing-function: ease;}
@@ -179,6 +181,39 @@ export default {
       }
       100% {
         opacity: 1; margin-top: 0;
+      }
+    }
+  }
+  @media(max-width: 1280px) {
+    .book-list-ui {display: flex; flex-wrap: wrap; margin-left: 0; justify-content: center;
+      &>li {position: static; animation-fill-mode: none; padding: 1rem !important; max-width: 50%;
+        &:hover {transform: rotate(0); margin-top: 0;}
+        &:nth-child(n+5) {display: none;}
+      }
+    }
+    @for $i from 1 to 11 {
+      @keyframes slideNode#{$i} {
+        @if($i < 5){
+          0% {
+            left: 0; transform: rotate(-3deg);
+          }
+          80% {
+            left: 0; transform: rotate(-3deg);
+          }
+          100% {
+            left: ($i * 20px); top: ( + $i * -3px); transform: rotate((-5 + $i * 1deg));
+          }
+        } @else {
+          0% {
+            left: 0; transform: rotate(-10deg); display: none;
+          }
+          80% {
+            left: 0; transform: rotate(-10deg);
+          }
+          100% {display: none;
+            left: ($i * 20px); top: (-30+ $i * 3px); transform: rotate((-5 + $i * 1deg));
+          }
+        }
       }
     }
   }

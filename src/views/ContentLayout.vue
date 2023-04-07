@@ -120,6 +120,7 @@
         </div>
         <ContentSideBox/>
     </section>
+        <Footer/>
 </template>
 
 
@@ -127,9 +128,10 @@
 import SearchBox from '@/components/SearchBox.vue'
 import bookData from "./../assets/data/bookData.js"
 import ContentSideBox from '@/components/ContentSideBox.vue'
+import Footer from '@/components/FooterLayout.vue'
 
 export default {
-    components : { SearchBox, ContentSideBox },
+    components : { SearchBox, ContentSideBox, Footer },
     name : 'contentPage',
     props: ['text'],
     data () {
@@ -162,7 +164,7 @@ export default {
 }
 .bookListWrap {margin-top: 10rem;}
 .bookListWrap,.serch_wrap {display: flex; width: 100%; flex-wrap: wrap; min-height: 50vh; position: relative; z-index: 5;
-    .book_box {width: 110rem; height: fit-content; display: flex; margin-top: -1px; padding: 0 3rem; border-top: 1px solid #d5d5d5; border-bottom: 1px solid #d5d5d5;
+    .book_box {width: calc(50% - 2rem); height: fit-content; display: flex; margin : 1rem; border-radius: 2rem; padding: 0 3rem; border: 1px solid #d5d5d5; 
         img {display: block; box-shadow: 0px 10px 12px #00000014; transition: .3s all;}
         &:hover {
             .book {
@@ -195,7 +197,7 @@ export default {
                 li {padding: 1rem 0;
                     span {display: inline-block;}
                     strong {font-size: 2rem;}
-                    &.book_info {white-space: pre-line; word-break: keep-all; display: -webkit-box; font-size: 1.3rem;
+                    &.book_info {letter-spacing: 0; word-break: keep-all; display: -webkit-box; font-size: 1.3rem;
     white-space: normal; overflow: hidden; text-overflow: ellipsis; height: 6rem; padding-top: 1rem; -webkit-line-clamp: 3; -webkit-box-orient: vertical;}
                     .sale {color: #4dac27; margin-right: .5rem; font-size: 2rem;}
                     .salePec {font-size: 1.3rem; text-decoration: line-through; margin-left: .5rem;}
@@ -249,4 +251,19 @@ export default {
 
 .page > span { width: 100%; height: 100%; transform-origin: left center; transition-timing-function: ease; }
 .book .book_front span img.device2 {position: absolute; width: 100%; height: 18rem; z-index: 9999;}
+@media(max-width: 1280px) {
+    .bookListWrap,.serch_wrap {
+        .book_box {width: 100%;
+            .book_info {padding: 3rem 0 3rem 2rem; width: 100%;
+                .info {width: 100%;}
+                .shopping {width: 100%; margin-top: 2rem;
+                    button {max-width: 14rem;
+                        &:first-child {margin-bottom: 0;}
+                    }
+                }
+            }
+        }
+    }   
+}
+
 </style>

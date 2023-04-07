@@ -11,7 +11,7 @@ img {
     -o-user-drag: none;
     user-drag: none;
   }
-.section {width: 1400px; margin: 0 auto;}
+.section {width: 140rem; margin: 0 auto;}
 input:focus {outline: none;}
 
 html{position:relative;font-size:10px;box-sizing:border-box;overflow-x:hidden;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent;letter-spacing: 0; font-family: 'Pretendard';}
@@ -49,8 +49,13 @@ article,aside,figcaption,figure,footer,header,hgroup,main,nav,section{display:bl
 button,input,optgroup,pre,select,textarea{color:inherit;font-family:inherit;font-size:inherit;font-weight:inherit;margin:0}
 iframe{border:0}
 
-@media (max-width:1919px) {
+@media (max-width:1280px) {
     html {font-size: 9px;}
+    .section {max-width: 100%;}
+}
+
+@media (max-width:760px) {
+  html {font-size: 8px;}
 }
 
 
