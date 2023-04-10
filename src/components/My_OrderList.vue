@@ -295,4 +295,23 @@ export default {
   }
 
   }
+  @media(max-width: 768px){
+    .order_turn {flex-wrap: wrap;
+        li {width: 100%;}
+    }
+    .check_row {
+        &.check_order_list {
+            .check_order_list_content {
+                li {
+                    .detail {
+                        & > * {width: fit-content;
+                            &.price {display: none;}
+                            &.number {display: none;}
+                        }
+                    }
+                }
+            }
+        }
+    }
+  }
 </style>

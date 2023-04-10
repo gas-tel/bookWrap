@@ -114,7 +114,7 @@ export default {
         }
     }
     .section.top-section::after {background: #fff !important;}
-    .mypage_warp {background: #fff; height: 100vh; width: 128rem; margin: 0 auto; margin-top: 10rem;
+    .mypage_warp {background: #fff; min-height: 100vh; width: 128rem; margin: 0 0 0 10rem; margin-top: 10rem;
         .my_page_title {display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;
             .private_title {font-size: 3.6rem; font-weight: 800;}
             .private_info {display: flex; align-items: center;
@@ -135,6 +135,9 @@ export default {
                 }
             }
         }
+    }
+    @media(max-width: 1750px) {
+        .mypage_warp {margin: 0 auto;}
     }
     @media(max-width: 1280px){
         .mypage_warp {width: 100%;
