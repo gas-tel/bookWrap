@@ -93,7 +93,7 @@ export default {
   @media(max-width: 768px) {
     .normal_row_wrap_content {
       &>li {
-        .item_info {
+        .item_info {width: calc(100% - 20rem); padding: 0 1rem;
           .item_info_detail {
             em {margin-top: 0; width: 100%;
               &:not(:last-child) {height: fit-content;}
@@ -101,7 +101,11 @@ export default {
           }
           .item_info_title {white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 95%;}
         }
+        .row_img_box {border: none;
+          img {width: 5rem;}
+        }
       }
     }
+    .normal_row_wrap {padding: 0 .5rem;}
   }
 </style>

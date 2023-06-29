@@ -64,7 +64,7 @@ export default {
   animation-duration: .2s; animation-fill-mode: forwards; animation-name: slidein; animation-timing-function: ease-in; 
     li {position: absolute; border-radius: 5px;animation-fill-mode: forwards; padding: 0rem !important;
     animation-timing-function: ease-in; position: absolute; transition: .3s all;
-        &:hover {margin-top: -3rem; transform: rotate(-0deg) translateX(-50%);}
+        &:hover {margin-top: -3rem; transform: rotate(-0deg) translateX(-50%); }
         &.bookInfo {animation-duration: 5s; display: flex;
           @for $i from 0 to 11 {
             &:nth-child(#{$i}) {animation-name: slideEnd+$i; z-index: $i*1; animation-duration: 1s; animation-timing-function: ease;}
@@ -84,11 +84,19 @@ export default {
             .bookInfo {white-space: pre-line; max-width: 60rem; word-break: keep-all; display: -webkit-box;
     white-space: normal; overflow: hidden; text-overflow: ellipsis; height: 15rem; padding-top: 5rem; -webkit-line-clamp: 4; -webkit-box-orient: vertical;}
           }
+          &::after {display: none !important;}
         }
         &:hover {
           img {cursor: pointer;}
+        &::after {display: block; animation-name: bookhover; animation-duration: 1.5s; animation-iteration-count: infinite;
+        animation-timing-function: ease; animation-fill-mode: forwards;}
         }
-      img {width: 25rem; height: 35rem; box-shadow: 0px 4px 10px #00000014;}
+        &::after {display: none; content: '';width: 0; height: 0; position: absolute; top: -3rem; left: 50%; transform: translateX(-50%);
+                  border-bottom: 20px solid rgba(0,0,0,0);
+                  border-top: 20px solid #ac59f6;
+                  border-left: 12px solid rgba(0,0,0,0);
+                  border-right: 12px solid rgba(0,0,0,0);}
+      img {width: 25rem; height: 35rem; box-shadow: 0px 4px 10px rgba(0,0,0,0);}
       @for $i from 0 to 11 {
         &:nth-child(#{$i}) {animation-duration: $i*.05s; animation-name: slideNode+$i;}
       }
@@ -102,6 +110,17 @@ export default {
     }
     100% {
       top: calc(0vh + 28rem); transform: translateX(-50%);
+    }
+  }
+  @keyframes bookhover {
+    0% {
+      margin-top: -1rem;
+    }
+    50% {
+      margin-top: -2rem;
+    }
+    100% {
+      margin-top: -1rem;
     }
   }
   @for $i from 1 to 11 {

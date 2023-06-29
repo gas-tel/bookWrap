@@ -1,6 +1,5 @@
 <template>
   <footer>
-            footer areaasdasdasdas
   </footer>
 </template>
 

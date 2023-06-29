@@ -463,7 +463,7 @@ export default {
     .normal_row_container {width: 100%;}
   }
   @media(max-width: 768px) {
-    .normal_row_wrap_content {
+    .normal_row_wrap_content {white-space: nowrap;
         .cost {width: 13rem; padding-right: .5rem; flex-wrap: wrap !important;
             .origin_price {display: none;}
             .price {padding-left: 0;}

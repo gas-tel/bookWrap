@@ -4,7 +4,7 @@
             <SearchBox/>
         </div>
     </section>
-    <section class="section">
+    <section class="section bookList_bg">
         <div class="bookListWrap">
             <div class="info" v-if="currentRoute.query.text">
                 <div class="empty" v-if="bookData.filter((v)=>v.title.match(currentRoute.query.text))==0 ">
@@ -158,13 +158,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.bookList_bg {position: relative;
+    &::after {display: block; content: ''; position: absolute; 
+    width: 100vw;
+    height: 139vh;
+    left: 50%;
+    top: calc(50% + 8.1rem);
+    transform: translate(-50%,-50%);
+    background-image: linear-gradient(-225deg, #CBBACC 0%, #2580B3 100%);}
+}
 .sch-wrap {margin-top: 7rem;}
 .alert {display: flex; align-items: baseline; font-size: 3rem; justify-content: center; width: 100%;
     strong {margin-left: 2rem;}
 }
-.bookListWrap {margin-top: 10rem;}
+.bookListWrap {padding-top: 21rem;}
 .bookListWrap,.serch_wrap {display: flex; width: 100%; flex-wrap: wrap; min-height: 50vh; position: relative; z-index: 5;
-    .book_box {width: calc(50% - 2rem); height: fit-content; display: flex; margin : 1rem; border-radius: 2rem; padding: 0 3rem; border: 1px solid #d5d5d5; 
+    .book_box {background: #fff; width: calc(50% - 2rem); height: fit-content; display: flex; margin : 1rem; border-radius: 2rem; padding: 0 3rem; border: 1px solid #d5d5d5; 
         img {display: block; box-shadow: 0px 10px 12px #00000014; transition: .3s all;}
         &:hover {
             .book {

@@ -159,12 +159,19 @@ export default {
         &.top-section {padding: 0 1rem;}
     }
 }
-@media(max-width: 760px){
+@media(max-width: 768px){
     .sch-wrap {padding: 0;
         .rank-box {width: 100%; margin: auto;}
         .sch-categoty {
             li {padding: 1rem;
                 button {font-size: 3rem;}
+            }
+        }
+    }
+    .top-nav, .users {
+        li {padding-right: 1rem;
+            &:not(:last-child) {
+                &::after {display: none;}
             }
         }
     }

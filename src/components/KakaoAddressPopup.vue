@@ -147,7 +147,7 @@ export default {
 
 <style lang="scss">
 .kakao_popup_wrap {position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); padding: 2rem; background: #fff;
-    border: 1px solid #ddd; border-radius: .5rem;
+    border: 1px solid #ddd; border-radius: .5rem; z-index: 10;
     .check_order_advice_row {padding: 2rem 1rem; border-bottom: 1px solid #E8E8E8;
         &>li {display: flex; align-items: baseline;
             &:not(:last-child) {margin-bottom: 2rem;}
@@ -164,5 +164,20 @@ export default {
 .form {
     input[type=text].long {display: block; width: 40rem; margin-top: 2rem;}
     input[type=button] {height: 3.65rem; line-height: 0.428571; color: #fff; font-size: 1.5rem; background: #686868; padding: 0.9rem 1.2rem; margin-left: -0.3rem; white-space: nowrap;}
+}
+
+@media(max-width: 768px) {
+  .kakao_popup_wrap {
+    .check_order_advice_row {
+      &>li {flex-wrap: wrap;
+        strong {margin-bottom: 1rem;}
+      }
+    }
+  }
+  .form {
+    input[type=text]{
+      &.long {width: 30rem;}
+    }
+  }
 }
 </style>
