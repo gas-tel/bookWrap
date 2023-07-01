@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import bookData from "./../assets/data/bookData.js"
+import bookData from "@/assets/data/bookData.js"
  
 export default {
   props:['menuTitle','contentType','active','bookType'],

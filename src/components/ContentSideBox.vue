@@ -1,6 +1,6 @@
 <template>
   <div class="coupon_wrap">
-    <ul class="list">
+    <!-- <ul class="list">
       <li>
         <button class="xi-heart" @click="likeListBtn"></button>
         <ul class="like_book" :class="{active : likeBtn}">
@@ -17,7 +17,7 @@
           </li>
         </ul>
       </li>
-    </ul>
+    </ul> -->
   </div>
 </template>
 
