@@ -118,20 +118,17 @@
                 </div>
             </div>
         </div>
-        <ContentSideBox/>
     </section>
-        <Footer/>
 </template>
 
 
 <script>
 import SearchBox from '@/components/SearchBox.vue'
 import bookData from "@/assets/data/bookData.js"
-import ContentSideBox from '@/components/ContentSideBox.vue'
 import Footer from '@/components/FooterLayout.vue'
 
 export default {
-    components : { SearchBox, ContentSideBox, Footer },
+    components : { SearchBox, Footer },
     name : 'contentPage',
     props: ['text'],
     data () {

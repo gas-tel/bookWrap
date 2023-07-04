@@ -49,15 +49,12 @@
         </div>
     </div>
   </div>
-  <Footer/>
 </template>
 
 <script>
-import AddressInfo from '@/components/My_UserAddressInfo.vue'
-import OrderList from '@/components/My_OrderList.vue'
+import AddressInfo from '@/components/MyUserAddressInfo.vue'
+import OrderList from '@/components/MyOrderList.vue'
 import userData from './../assets/data/guest.js'
-import WishList from '@/components/My_wishList.vue'
-import BasketList from '@/components/My_ basket.vue'
 import bookData from '@/assets/data/bookData.js'
 import Footer from '@/components/FooterLayout.vue'
 
@@ -66,8 +63,6 @@ export default {
     components : {
         AddressInfo,
         OrderList,
-        WishList,
-        BasketList,
         Footer
     },
     data() {
